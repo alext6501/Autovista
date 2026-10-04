@@ -90,6 +90,20 @@ html:not(.dark) .bg-slate-800\/90 {
 html:not(.dark) .text-white {
   color: #0f172a !important;
 }
+html:not(.dark) .bg-blue-600,
+html:not(.dark) .bg-blue-500,
+html:not(.dark) .bg-emerald-600,
+html:not(.dark) .bg-emerald-500,
+html:not(.dark) .bg-red-600,
+html:not(.dark) .bg-red-500,
+html:not(.dark) .bg-blue-600 *,
+html:not(.dark) .bg-blue-500 *,
+html:not(.dark) .bg-emerald-600 *,
+html:not(.dark) .bg-emerald-500 *,
+html:not(.dark) .bg-red-600 *,
+html:not(.dark) .bg-red-500 * {
+  color: #ffffff !important;
+}
 html:not(.dark) .text-slate-100 {
   color: #0f172a !important;
 }
