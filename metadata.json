@@ -1,0 +1,6 @@
+{
+  "name": "AutoVista - Vehicle Catalog & Showcase",
+  "description": "Discover cars and motorcycles, compare technical specifications, and explore vehicle costs in a modern catalog.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
