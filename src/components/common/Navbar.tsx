@@ -56,8 +56,16 @@ export const Navbar: React.FC = () => {
             className="flex items-center gap-2.5 text-left focus:outline-none group cursor-pointer"
             aria-label="AutoVista Home"
           >
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-              <span className="font-extrabold text-lg tracking-wider">A</span>
+            <div className="w-10 h-10 rounded-xl overflow-hidden bg-slate-900 border border-blue-500/30 flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 group-hover:border-blue-500/60 transition-all">
+              <img
+                src="/logo.jpg"
+                alt="AutoVista Emblem"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  // Fallback if needed
+                  (e.currentTarget as HTMLElement).style.display = 'none';
+                }}
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-xl sm:text-2xl font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors font-display">

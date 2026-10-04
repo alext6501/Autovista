@@ -24,8 +24,12 @@ export const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-700 to-blue-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
-                <span className="font-extrabold text-base">A</span>
+              <div className="w-9 h-9 rounded-xl overflow-hidden bg-slate-900 border border-blue-500/30 flex items-center justify-center shadow-md shadow-blue-500/20">
+                <img
+                  src="/logo.jpg"
+                  alt="AutoVista Emblem"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <span className="text-xl font-bold tracking-tight text-white font-display">
                 Auto<span className="text-blue-500">Vista</span>

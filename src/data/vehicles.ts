@@ -1174,3 +1174,4 @@ export const VEHICLES_DATA: Vehicle[] = [
 
 export const HERO_DUO_IMAGE = '/src/assets/images/hero_showcase_duo_1791120147677.jpg';
 export const ABOUT_STUDIO_IMAGE = '/src/assets/images/about_automotive_studio_1791120185565.jpg';
+export const AUTOVISTA_LOGO_IMAGE = '/src/assets/images/autovista_emblem_logo_1791123133873.jpg';
