@@ -34,11 +34,11 @@ export const AboutPage: React.FC = () => {
       
       {/* Page Title */}
       <div className="pb-6 border-b border-slate-800">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
           Independent Vehicle Discovery
         </div>
         <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-display">
-          About AutoVista
+          About VeyroMotors
         </h1>
         <p className="mt-2 text-base sm:text-lg text-slate-400 max-w-2xl">
           Your trusted, unbiased source for automobile and motorcycle specifications, engineering data, and reference costs.
@@ -50,17 +50,17 @@ export const AboutPage: React.FC = () => {
         
         {/* Left Studio Image */}
         <div className="lg:col-span-6">
-          <div className="rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl relative aspect-[16/10] group">
+          <div className="rounded-lg overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl relative aspect-[16/10] group">
             <img
               src={ABOUT_STUDIO_IMAGE}
-              alt="AutoVista automotive studio"
+              alt="VeyroMotors automotive studio"
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e17]/80 via-transparent to-transparent pointer-events-none" />
             
-            <div className="absolute bottom-4 left-4 right-4 bg-slate-900/80 backdrop-blur-md p-3.5 rounded-xl border border-slate-700/60 text-xs text-slate-300">
-              <span className="font-semibold text-white block">AutoVista Engineering Archive</span>
+            <div className="absolute bottom-4 left-4 right-4 bg-slate-900/80 backdrop-blur-md p-3.5 rounded-md border border-slate-700/60 text-xs text-slate-300">
+              <span className="font-semibold text-white block">VeyroMotors Engineering Archive</span>
               <span className="text-slate-400">Curating specifications from global test tracks and manufacturer labs.</span>
             </div>
           </div>
@@ -73,14 +73,14 @@ export const AboutPage: React.FC = () => {
           </h2>
 
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-            AutoVista was founded with a straightforward goal: create a refined, uncluttered digital haven for automotive and motorcycle enthusiasts to research, contrast, and discover vehicles without the high-pressure sales funnels of dealerships or marketplaces.
+            VeyroMotors was founded with a straightforward goal: create a refined, uncluttered digital haven for automotive and motorcycle enthusiasts to research, contrast, and discover vehicles without the high-pressure sales funnels of dealerships or marketplaces.
           </p>
 
           <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
-            Whether you are analyzing the compression ratio and dry weight of a middleweight naked motorcycle or comparing the fuel economy and passenger volume of a compact sedan, AutoVista brings clean, structured technical information directly to your screen.
+            Whether you are analyzing the compression ratio and dry weight of a middleweight naked motorcycle or comparing the fuel economy and passenger volume of a compact sedan, VeyroMotors brings clean, structured technical information directly to your screen.
           </p>
 
-          <div className="p-4 rounded-xl bg-blue-950/20 border border-blue-500/30 text-xs sm:text-sm text-slate-300 flex items-start gap-3">
+          <div className="p-4 rounded-md bg-blue-950/20 border border-blue-500/30 text-xs sm:text-sm text-slate-300 flex items-start gap-3">
             <IonIcon name="information-circle-outline" size={20} className="text-blue-400 shrink-0 mt-0.5" />
             <div>
               <strong className="text-white block font-semibold mb-0.5">Showcase Only • Non-Commercial Guarantee</strong>
@@ -95,7 +95,7 @@ export const AboutPage: React.FC = () => {
       <section className="flex flex-col gap-6">
         <div>
           <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-            What AutoVista Delivers
+            What VeyroMotors Delivers
           </h2>
           <p className="mt-1 text-sm text-slate-400">
             Built from the ground up for clarity, speed, and technical depth.
@@ -106,7 +106,7 @@ export const AboutPage: React.FC = () => {
           {corePillars.map((pillar) => (
             <div
               key={pillar.title}
-              className="p-6 rounded-2xl bg-[#0f172a] border border-slate-800 hover:border-blue-500/30 transition-all flex flex-col"
+              className="p-6 rounded-md bg-[#0f172a] border border-slate-800 hover:border-blue-500/30 transition-all flex flex-col"
             >
               <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mb-4">
                 <IonIcon name={pillar.icon} size={22} />

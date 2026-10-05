@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { VEHICLES_DATA } from '../data/vehicles';
 import { VehicleCard } from '../components/common/VehicleCard';
@@ -10,18 +10,36 @@ interface BrowsePageProps {
 }
 
 export const BrowsePage: React.FC<BrowsePageProps> = ({ initialType }) => {
-  const { selectedBrand, vehicles } = useApp();
+  const { selectedBrand, selectedCategory, vehicles } = useApp();
 
   const [activeType, setActiveType] = useState<VehicleType | 'all'>(initialType || 'car');
   const [brandFilter, setBrandFilter] = useState<string>(selectedBrand || 'all');
   const [priceFilter, setPriceFilter] = useState<string>('all');
   const [yearFilter, setYearFilter] = useState<string>('all');
-  const [fuelFilter, setFuelFilter] = useState<string>('all');
-  const [categoryFilter, setCategoryFilter] = useState<string>('all');
+  const [fuelFilter, setFuelFilter] = useState<string>(selectedCategory === 'Electric' ? 'Electric' : 'all');
+  const [categoryFilter, setCategoryFilter] = useState<string>(selectedCategory && selectedCategory !== 'Electric' ? selectedCategory : 'all');
   const [sortOption, setSortOption] = useState<string>('featured');
   const [onlyReduced, setOnlyReduced] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (initialType) {
+      setActiveType(initialType);
+    }
+  }, [initialType]);
+
+  useEffect(() => {
+    if (selectedCategory) {
+      if (selectedCategory === 'Electric') {
+        setFuelFilter('Electric');
+        setCategoryFilter('all');
+      } else {
+        setCategoryFilter(selectedCategory);
+      }
+      setCurrentPage(1);
+    }
+  }, [selectedCategory]);
 
   const itemsPerPage = 6;
 

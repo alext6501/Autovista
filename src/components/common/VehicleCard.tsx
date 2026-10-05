@@ -52,7 +52,7 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
   return (
     <div
       onClick={handleCardClick}
-      className="group relative bg-[#0f172a] border border-slate-800/80 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-200 cursor-pointer flex flex-col justify-between"
+      className="group relative bg-[#0f172a] border border-slate-800/80 rounded-lg overflow-hidden hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-200 cursor-pointer flex flex-col justify-between"
     >
       {/* Top Image Container */}
       <div className="relative aspect-[16/10] w-full bg-slate-900 overflow-hidden">
@@ -80,11 +80,11 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
 
         {/* Category Pill Tag & Cost Reduced Badge */}
         <div className="absolute bottom-3 left-3 flex items-center gap-1.5 flex-wrap max-w-[85%]">
-          <span className="px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur-md border border-slate-700/60 text-xs font-medium text-slate-200 shadow-sm">
+          <span className="px-2.5 py-1 rounded-sm bg-slate-900/80 backdrop-blur-md border border-slate-700/60 text-xs font-medium text-slate-200 shadow-sm">
             {vehicle.category}
           </span>
           {isCostReduced && (
-            <span className="px-2 py-0.5 rounded-md bg-emerald-500/90 text-slate-950 font-bold text-[11px] shadow-sm flex items-center gap-1">
+            <span className="px-2 py-0.5 rounded-sm bg-emerald-500/90 text-slate-950 font-bold text-[11px] shadow-sm flex items-center gap-1">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
@@ -139,7 +139,7 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
           </h3>
 
           {/* Quick Specifications Line */}
-          <div className="mt-3 py-2 px-2.5 rounded-lg bg-slate-900/60 border border-slate-800/60 flex items-center justify-between text-xs text-slate-300">
+          <div className="mt-3 py-2 px-2.5 rounded-md bg-slate-900/60 border border-slate-800/60 flex items-center justify-between text-xs text-slate-300">
             <div className="flex items-center gap-1.5 truncate max-w-[55%]">
               <IonIcon name="speedometer-outline" size={14} className="text-blue-400 shrink-0" />
               <span className="truncate">{vehicle.horsepower} HP</span>
@@ -178,7 +178,7 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
 
           <button
             onClick={handleCardClick}
-            className="px-3.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-blue-600 text-slate-200 hover:text-white text-xs font-semibold transition-colors flex items-center gap-1 cursor-pointer group/btn"
+            className="px-3.5 py-1.5 rounded-md bg-slate-800/80 hover:bg-blue-600 text-slate-200 hover:text-white text-xs font-semibold transition-colors flex items-center gap-1 cursor-pointer group/btn"
           >
             <span>Details</span>
             <IonIcon

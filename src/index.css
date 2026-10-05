@@ -150,3 +150,21 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+/* Continuous flowing marquee for car brands */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 34s linear infinite;
+  will-change: transform;
+}
+

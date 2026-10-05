@@ -18,8 +18,8 @@ export const AdminPage: React.FC = () => {
   } = useApp();
 
   // Admin Login State
-  const [loginEmail, setLoginEmail] = useState('admin@autovista.com');
-  const [loginPassword, setLoginPassword] = useState('autovista2026');
+  const [loginEmail, setLoginEmail] = useState('admin@veyromotors.com');
+  const [loginPassword, setLoginPassword] = useState('veyromotors2026');
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
 
@@ -42,37 +42,21 @@ export const AdminPage: React.FC = () => {
   };
 
   const handleAutoFillDemo = () => {
-    setLoginEmail('admin@autovista.com');
-    setLoginPassword('autovista2026');
+    setLoginEmail('admin@veyromotors.com');
+    setLoginPassword('veyromotors2026');
     setLoginError('');
   };
 
-  // Add Vehicle Form State
+  // Add Vehicle Form State - Streamlined & Fast
   const [newType, setNewType] = useState<VehicleType>('car');
   const [newBrand, setNewBrand] = useState('Toyota');
   const [newModel, setNewModel] = useState('');
   const [newYear, setNewYear] = useState('2024');
   const [newCost, setNewCost] = useState('');
   const [newCategory, setNewCategory] = useState('Sedan');
-  const [newEngine, setNewEngine] = useState('');
-  const [newDisplacement, setNewDisplacement] = useState('');
-  const [newHorsepower, setNewHorsepower] = useState('');
-  const [newTorque, setNewTorque] = useState('');
-  const [newFuelType, setNewFuelType] = useState<'Gasoline' | 'Electric' | 'Hybrid' | 'Diesel'>('Gasoline');
-  const [newTransmission, setNewTransmission] = useState('');
-  const [newFuelEconomy, setNewFuelEconomy] = useState('');
-  const [newWeight, setNewWeight] = useState('');
-  const [newSeating, setNewSeating] = useState('5');
-  const [newTopSpeed, setNewTopSpeed] = useState('');
-  const [newAcceleration, setNewAcceleration] = useState('');
-  const [newDrivetrain, setNewDrivetrain] = useState('Rear-Wheel Drive (RWD)');
+  const [newHorsepower, setNewHorsepower] = useState('200');
   const [newImage, setNewImage] = useState('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80');
   const [newDescription, setNewDescription] = useState('');
-  const [newFeatures, setNewFeatures] = useState(
-    'Touchscreen Infotainment System\nApple CarPlay & Android Auto\nAdvanced Driver Assist Suite\nDual-Zone Automatic Climate Control\nLED Performance Headlamps'
-  );
-  const [newIsFeatured, setNewIsFeatured] = useState(true);
-  const [newIsPopular, setNewIsPopular] = useState(true);
 
   // Preset images for convenience
   const sampleCarImages = [
@@ -154,13 +138,8 @@ export const AdminPage: React.FC = () => {
       return;
     }
 
-    const hpNum = parseInt(newHorsepower.replace(/[^0-9]/g, ''), 10) || 150;
-    const seatingNum = parseInt(newSeating.replace(/[^0-9]/g, ''), 10) || (newType === 'car' ? 5 : 2);
-
-    const featureList = newFeatures
-      .split('\n')
-      .map((f) => f.trim())
-      .filter((f) => f.length > 0);
+    const hpNum = parseInt(newHorsepower.replace(/[^0-9]/g, ''), 10) || (newType === 'car' ? 200 : 75);
+    const isCar = newType === 'car';
 
     const createdId = addVehicle({
       type: newType,
@@ -168,32 +147,39 @@ export const AdminPage: React.FC = () => {
       model: newModel.trim(),
       year: parseInt(newYear, 10) || 2024,
       cost: costNum,
-      category: newCategory.trim(),
+      category: newCategory.trim() || (isCar ? 'Sedan' : 'Sport'),
       image: newImage.trim(),
       gallery: [newImage.trim()],
-      engine: newEngine.trim() || (newType === 'car' ? '2.0L 4-Cylinder Turbocharged' : '650cc Parallel-Twin'),
-      displacement: newDisplacement.trim() || '1,998 cc',
+      engine: isCar
+        ? (hpNum > 320 ? '3.0L Twin-Turbocharged V6' : hpNum > 240 ? '2.0L Turbo 4-Cylinder' : '2.0L 4-Cylinder DOHC')
+        : (hpNum > 100 ? '998cc Liquid-Cooled Inline-4' : '689cc Parallel-Twin DOHC'),
+      displacement: isCar ? (hpNum > 320 ? '2,998 cc' : '1,998 cc') : (hpNum > 100 ? '998 cc' : '689 cc'),
       horsepower: hpNum,
-      torque: newTorque.trim() || '200 lb-ft @ 3,500 RPM',
-      fuelType: newFuelType,
-      transmission: newTransmission.trim() || (newType === 'car' ? '8-Speed Automatic' : '6-Speed Manual'),
-      fuelEconomy: newFuelEconomy.trim() || (newType === 'car' ? '28 MPG Combined' : '50 MPG Combined'),
-      weight: newWeight.trim() || (newType === 'car' ? '3,400 lbs' : '420 lbs'),
-      seatingCapacity: seatingNum,
-      topSpeed: newTopSpeed.trim() || '135 mph',
-      acceleration: newAcceleration.trim() || '6.2 sec (0-60 mph)',
-      drivetrain: newDrivetrain,
-      features: featureList.length > 0 ? featureList : ['Factory Performance Tuning', 'LED Lights'],
-      description: newDescription.trim() || `The ${newBrand} ${newModel} offers distinctive engineering, modern styling, and balanced vehicle performance in its class.`,
-      isFeatured: newIsFeatured,
-      isPopular: newIsPopular,
+      torque: `${Math.round(hpNum * 0.95)} lb-ft`,
+      fuelType: 'Gasoline',
+      transmission: isCar ? '8-Speed Automatic' : '6-Speed Constant Mesh',
+      fuelEconomy: isCar ? '28 MPG Combined' : '48 MPG Combined',
+      weight: isCar ? '3,450 lbs' : '418 lbs',
+      seatingCapacity: isCar ? 5 : 2,
+      topSpeed: `${Math.min(195, Math.round(112 + hpNum * 0.18))} mph`,
+      acceleration: `${Math.max(2.9, parseFloat((8.2 - hpNum * 0.018).toFixed(1)))} sec (0-60 mph)`,
+      drivetrain: isCar ? 'Rear-Wheel Drive (RWD)' : 'Chain Drive',
+      features: [
+        'Touchscreen Infotainment System',
+        'Smartphone Integration Suite',
+        'Performance Tuned Suspension',
+        'LED Performance Headlamps',
+        'Comprehensive Safety Package'
+      ],
+      description: newDescription.trim() || `The ${newBrand} ${newModel} delivers exciting performance, precision handling, and modern road presence in the ${newCategory || (isCar ? 'Sedan' : 'Sport')} class.`,
+      isFeatured: true,
+      isPopular: true,
       isLatest: true,
     });
 
     // Reset some fields and switch to manage tab
     setNewModel('');
     setNewCost('');
-    setNewEngine('');
     setNewDescription('');
     setActiveTab('manage');
     navigateTo(newType === 'car' ? 'car-details' : 'motorcycle-details', createdId);
@@ -203,11 +189,11 @@ export const AdminPage: React.FC = () => {
   if (!isAdminAuthenticated) {
     return (
       <div className="max-w-md mx-auto px-4 py-16 sm:py-24 w-full flex flex-col items-center">
-        <div className="w-full bg-[#0f172a] border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+        <div className="w-full bg-[#0f172a] border border-slate-800 rounded-lg p-6 sm:p-8 shadow-2xl relative overflow-hidden">
           {/* Top lock icon */}
           <div className="flex flex-col items-center text-center mb-6">
-            <div className="w-14 h-14 rounded-2xl bg-blue-600/10 border border-blue-500/30 text-blue-500 flex items-center justify-center mb-3 shadow-md shadow-blue-500/10">
-              <IonIcon name="lock-closed-outline" size={26} />
+            <div className="w-12 h-12 rounded-md bg-blue-600/10 border border-blue-500/30 text-blue-500 flex items-center justify-center mb-3 shadow-md shadow-blue-500/10">
+              <IonIcon name="lock-closed-outline" size={24} />
             </div>
             <h1 className="text-2xl font-extrabold text-white tracking-tight font-display">
               Admin Portal
@@ -218,7 +204,7 @@ export const AdminPage: React.FC = () => {
           </div>
 
           {loginError && (
-            <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-400 font-medium">
+            <div className="mb-4 p-3 rounded-md bg-red-500/10 border border-red-500/30 text-xs text-red-400 font-medium">
               {loginError}
             </div>
           )}
@@ -232,10 +218,10 @@ export const AdminPage: React.FC = () => {
                 <input
                   type="email"
                   required
-                  placeholder="admin@autovista.com"
+                  placeholder="admin@veyromotors.com"
                   value={loginEmail}
                   onChange={(e) => setLoginEmail(e.target.value)}
-                  className="w-full px-4 py-2.5 pl-10 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2.5 pl-10 bg-slate-900 border border-slate-700 rounded-md text-white text-sm placeholder-slate-500 focus:outline-none focus:border-blue-500"
                 />
                 <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
                   <IonIcon name="mail-outline" size={16} />
@@ -254,7 +240,7 @@ export const AdminPage: React.FC = () => {
                   placeholder="••••••••••••"
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
-                  className="w-full px-4 py-2.5 pl-10 pr-10 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2.5 pl-10 pr-10 bg-slate-900 border border-slate-700 rounded-md text-white text-sm placeholder-slate-500 focus:outline-none focus:border-blue-500"
                 />
                 <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
                   <IonIcon name="lock-closed-outline" size={16} />
@@ -272,7 +258,7 @@ export const AdminPage: React.FC = () => {
 
             <button
               type="submit"
-              className="w-full mt-2 py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full mt-2 py-3 px-4 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Unlock Admin Dashboard</span>
               <IonIcon name="arrow-forward-outline" size={16} />
@@ -291,9 +277,9 @@ export const AdminPage: React.FC = () => {
                 1-Click Autofill
               </button>
             </div>
-            <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800/80 font-mono text-[11px] text-slate-300 space-y-0.5">
-              <div>Email: <strong className="text-white">admin@autovista.com</strong></div>
-              <div>Password: <strong className="text-white">autovista2026</strong></div>
+            <div className="p-2.5 rounded-md bg-slate-900 border border-slate-800/80 font-mono text-[11px] text-slate-300 space-y-0.5">
+              <div>Email: <strong className="text-white">admin@veyromotors.com</strong></div>
+              <div>Password: <strong className="text-white">veyromotors2026</strong></div>
             </div>
           </div>
 
@@ -626,14 +612,14 @@ export const AdminPage: React.FC = () => {
 
       {/* TAB 2: ADD NEW CAR / VEHICLE FORM */}
       {activeTab === 'add' && (
-        <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-6 sm:p-8">
+        <div className="bg-[#0f172a] border border-slate-800 rounded-lg p-6 sm:p-8">
           <div className="pb-4 border-b border-slate-800 mb-6 flex items-center justify-between">
             <div>
               <h2 className="text-xl font-bold text-white tracking-tight">
                 Add New Vehicle Model
               </h2>
               <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
-                Fill in the specifications, reference MSRP cost, and description to publish to AutoVista.
+                Fill in the specifications, reference MSRP cost, and description to publish to VeyroMotors.
               </p>
             </div>
             <button
@@ -644,15 +630,20 @@ export const AdminPage: React.FC = () => {
             </button>
           </div>
 
-          <form onSubmit={handleAddSubmit} className="space-y-6">
+          <form onSubmit={handleAddSubmit} className="space-y-5">
             
-            {/* 1. Basic Identity */}
+            {/* Essential Vehicle Details */}
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-3">
-                1. Vehicle Identity & Reference Cost
-              </h3>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-blue-400">
+                  Essential Vehicle Information
+                </h3>
+                <span className="text-[11px] text-slate-500">
+                  Technical drivetrain specs are automatically defaulted
+                </span>
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                
                 {/* Type */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-400 mb-1.5">
@@ -665,13 +656,13 @@ export const AdminPage: React.FC = () => {
                       setNewType(t);
                       if (t === 'car') {
                         setNewCategory('Sedan');
-                        setNewSeating('5');
+                        setNewHorsepower('200');
                       } else {
                         setNewCategory('Naked');
-                        setNewSeating('2');
+                        setNewHorsepower('75');
                       }
                     }}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-md text-white text-sm focus:outline-none focus:border-blue-500"
                   >
                     <option value="car">Car</option>
                     <option value="motorcycle">Motorcycle</option>
@@ -689,7 +680,7 @@ export const AdminPage: React.FC = () => {
                     placeholder="e.g. Toyota, BMW, Porsche"
                     value={newBrand}
                     onChange={(e) => setNewBrand(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-md text-white text-sm focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
@@ -701,10 +692,45 @@ export const AdminPage: React.FC = () => {
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Camry XSE, M4 GT, Panigale V4"
+                    placeholder="e.g. Camry XSE, Mustang GT, 911"
                     value={newModel}
                     onChange={(e) => setNewModel(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-md text-white text-sm focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+
+                {/* Model Year */}
+                <div>
+                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                    Model Year
+                  </label>
+                  <select
+                    value={newYear}
+                    onChange={(e) => setNewYear(e.target.value)}
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-md text-white text-sm focus:outline-none focus:border-blue-500"
+                  >
+                    <option value="2026">2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Second Row: Category, Price, Horsepower */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                {/* Category */}
+                <div>
+                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                    Category / Body Style *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder={newType === 'car' ? 'e.g. Sedan, Coupe, SUV' : 'e.g. Naked, Sport, Cruiser'}
+                    value={newCategory}
+                    onChange={(e) => setNewCategory(e.target.value)}
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-md text-white text-sm focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
@@ -720,201 +746,56 @@ export const AdminPage: React.FC = () => {
                     placeholder="e.g. 32500"
                     value={newCost}
                     onChange={(e) => setNewCost(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-md text-white text-sm focus:outline-none focus:border-blue-500 font-semibold"
                   />
                 </div>
 
-              </div>
-            </div>
-
-            {/* 2. Classification & Dimensions */}
-            <div className="pt-4 border-t border-slate-800">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-3">
-                2. Classification & Dimensions
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                
+                {/* Horsepower */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                    Model Year
-                  </label>
-                  <select
-                    value={newYear}
-                    onChange={(e) => setNewYear(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
-                  >
-                    <option value="2026">2026</option>
-                    <option value="2025">2025</option>
-                    <option value="2024">2024</option>
-                    <option value="2023">2023</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                    Category / Body Style
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder={newType === 'car' ? 'e.g. Sedan, Coupe, SUV' : 'e.g. Naked, Sport, Cruiser'}
-                    value={newCategory}
-                    onChange={(e) => setNewCategory(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                    Fuel / Powertrain
-                  </label>
-                  <select
-                    value={newFuelType}
-                    onChange={(e) => setNewFuelType(e.target.value as any)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
-                  >
-                    <option value="Gasoline">Gasoline</option>
-                    <option value="Hybrid">Hybrid</option>
-                    <option value="Electric">Electric</option>
-                    <option value="Diesel">Diesel</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                    Seating Capacity
+                    Horsepower (HP)
                   </label>
                   <input
                     type="number"
-                    min="1"
-                    max="9"
-                    value={newSeating}
-                    onChange={(e) => setNewSeating(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-
-              </div>
-            </div>
-
-            {/* 3. Powertrain & Performance */}
-            <div className="pt-4 border-t border-slate-800">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-3">
-                3. Powertrain & Technical Specifications
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                
-                <div>
-                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                    Engine / Motor Name
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. 2.5L 4-Cylinder DOHC 16V"
-                    value={newEngine}
-                    onChange={(e) => setNewEngine(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                    Horsepower (HP) *
-                  </label>
-                  <input
-                    type="number"
-                    placeholder="e.g. 203"
+                    placeholder={newType === 'car' ? 'e.g. 240' : 'e.g. 75'}
                     value={newHorsepower}
                     onChange={(e) => setNewHorsepower(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-md text-white text-sm focus:outline-none focus:border-blue-500"
                   />
                 </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                    Torque
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. 184 lb-ft @ 4,000 RPM"
-                    value={newTorque}
-                    onChange={(e) => setNewTorque(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                    Transmission
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. 8-Speed Automatic, 6-Speed Manual"
-                    value={newTransmission}
-                    onChange={(e) => setNewTransmission(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                    Fuel Economy / Range
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. 32 MPG Combined or 310 Miles Range"
-                    value={newFuelEconomy}
-                    onChange={(e) => setNewFuelEconomy(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                    Weight (lbs)
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. 3,350 lbs"
-                    value={newWeight}
-                    onChange={(e) => setNewWeight(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-
               </div>
             </div>
 
-            {/* 4. Media & Description */}
+            {/* Media & Overview */}
             <div className="pt-4 border-t border-slate-800">
               <h3 className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-3">
-                4. Photography, Description & Features
+                Vehicle Photo & Overview
               </h3>
 
               <div className="space-y-4">
                 {/* Image URL with Presets */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                    Vehicle Showcase Image URL
+                    Vehicle Photo URL *
                   </label>
                   <input
                     type="url"
                     required
                     value={newImage}
                     onChange={(e) => setNewImage(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-md text-white text-sm focus:outline-none focus:border-blue-500"
                   />
 
                   {/* Preset photo pickers */}
                   <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
-                    <span className="text-slate-500">Suggested High-Res Photos:</span>
+                    <span className="text-slate-500 text-[11px]">Quick 1-Click Photos:</span>
                     {(newType === 'car' ? sampleCarImages : sampleBikeImages).map((sample, idx) => (
                       <button
                         key={idx}
                         type="button"
                         onClick={() => setNewImage(sample.url)}
-                        className={`px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors ${
-                          newImage === sample.url ? 'ring-1 ring-blue-500 text-white' : ''
+                        className={`px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-colors cursor-pointer ${
+                          newImage === sample.url ? 'ring-1 ring-blue-500 text-white font-semibold' : ''
                         }`}
                       >
                         {sample.label}
@@ -926,27 +807,14 @@ export const AdminPage: React.FC = () => {
                 {/* Description */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                    Model Overview Description
+                    Description / Highlights (Optional)
                   </label>
                   <textarea
-                    rows={3}
-                    placeholder="Provide a comprehensive technical overview and character of this vehicle model..."
+                    rows={2}
+                    placeholder={`Brief summary of the ${newBrand || 'vehicle'} ${newModel || ''}...`}
                     value={newDescription}
                     onChange={(e) => setNewDescription(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500 resize-none"
-                  />
-                </div>
-
-                {/* Key Features */}
-                <div>
-                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                    Key Features Checklist (one item per line)
-                  </label>
-                  <textarea
-                    rows={4}
-                    value={newFeatures}
-                    onChange={(e) => setNewFeatures(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500 resize-none"
                   />
                 </div>
               </div>
@@ -954,12 +822,12 @@ export const AdminPage: React.FC = () => {
 
             {/* Submit Action */}
             <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-              <span className="text-xs text-slate-500">
-                Vehicle will be instantly added to the catalog, search index, and comparison engine.
+              <span className="text-xs text-slate-400">
+                Ready to publish model directly into catalog.
               </span>
               <button
                 type="submit"
-                className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/20 flex items-center gap-2 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/20 flex items-center gap-2 cursor-pointer"
               >
                 <IonIcon name="checkmark-circle-outline" size={18} />
                 <span>Publish to Catalog</span>

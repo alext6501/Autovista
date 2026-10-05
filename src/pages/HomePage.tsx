@@ -5,10 +5,12 @@ import { CAR_BRANDS, MOTORCYCLE_BRANDS } from '../data/brands';
 import { VehicleCard } from '../components/common/VehicleCard';
 import { IonIcon } from '../components/common/IonIcon';
 import { VehicleType } from '../types/vehicle';
+import { MovingCarHeroBackground } from '../components/home/MovingCarHeroBackground';
 
 export const HomePage: React.FC = () => {
   const { navigateTo, vehicles } = useApp();
   const [featuredTab, setFeaturedTab] = useState<VehicleType>('car');
+  const [heroImg, setHeroImg] = useState(HERO_DUO_IMAGE);
 
   // Featured vehicles filtered by tab
   const featuredVehicles = vehicles.filter(
@@ -45,16 +47,19 @@ export const HomePage: React.FC = () => {
   return (
     <div className="w-full flex flex-col gap-12 sm:gap-20 pb-16">
       
-      {/* 1. Large Hero Section */}
-      <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#0a0e17] via-[#0d1527] to-[#0a0e17] pt-8 sm:pt-14 pb-16 border-b border-slate-800/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 1. Large Hero Section with Moving Car Pre-Background */}
+      <section className="relative w-full overflow-hidden pt-8 sm:pt-14 pb-16 border-b border-slate-800/60 bg-[#0a0e17]">
+        {/* Pre-background that shows the car moving / video of moving car */}
+        <MovingCarHeroBackground />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Hero Copy */}
             <div className="lg:col-span-6 z-10 flex flex-col items-start text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
-                <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-                Comprehensive Vehicle Catalog
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4 backdrop-blur-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                VeyroMotors Official Catalog
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1] font-display">
@@ -62,13 +67,13 @@ export const HomePage: React.FC = () => {
               </h1>
 
               <p className="mt-4 sm:mt-5 text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed">
-                Discover cars and motorcycles, compare their specifications, and explore their costs with authentic technical data.
+                Discover cars and motorcycles, compare their specifications, and explore their costs with authentic technical data on VeyroMotors.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <button
                   onClick={() => navigateTo('cars')}
-                  className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm sm:text-base transition-colors shadow-lg shadow-blue-600/30 flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-3.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm sm:text-base transition-colors shadow-lg shadow-blue-600/30 flex items-center gap-2 cursor-pointer"
                 >
                   <span>Explore Vehicles</span>
                   <IonIcon name="arrow-forward-outline" size={18} />
@@ -76,7 +81,7 @@ export const HomePage: React.FC = () => {
 
                 <button
                   onClick={() => navigateTo('about')}
-                  className="px-6 py-3.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-200 font-semibold text-sm sm:text-base transition-colors flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-3.5 rounded-md bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-200 font-semibold text-sm sm:text-base transition-colors flex items-center gap-2 cursor-pointer backdrop-blur-md"
                 >
                   <span>Learn More</span>
                 </button>
@@ -101,21 +106,44 @@ export const HomePage: React.FC = () => {
 
             {/* Right Hero Image Card */}
             <div className="lg:col-span-6 relative">
-              <div className="relative rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl shadow-blue-900/20 group">
+              <div 
+                onClick={() => navigateTo('cars')}
+                className="relative rounded-lg overflow-hidden border border-slate-700/80 shadow-2xl shadow-blue-900/20 group cursor-pointer"
+              >
                 <img
-                  src={HERO_DUO_IMAGE}
-                  alt="AutoVista car and motorcycle showcase"
+                  src={heroImg}
+                  alt="VeyroMotors car and motorcycle showcase"
                   referrerPolicy="no-referrer"
-                  className="w-full h-auto aspect-[16/10] object-cover group-hover:scale-102 transition-transform duration-500"
+                  onError={() => setHeroImg('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80')}
+                  className="w-full h-auto aspect-[16/10] object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e17]/80 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e17]/90 via-[#0a0e17]/20 to-transparent pointer-events-none" />
                 
-                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-slate-300 bg-slate-900/80 backdrop-blur-md px-4 py-2.5 rounded-xl border border-slate-700/60">
-                  <div className="flex items-center gap-2">
-                    <IonIcon name="car-sport-outline" size={16} className="text-blue-400" />
-                    <span>Cars & Motorcycles</span>
+                {/* Floating Showcase Badges */}
+                <div className="absolute top-4 left-4 flex items-center gap-2">
+                  <span className="px-3 py-1 rounded-md bg-blue-600/90 backdrop-blur-md text-white font-bold text-xs shadow-lg flex items-center gap-1.5">
+                    <IonIcon name="sparkles-outline" size={13} />
+                    <span>2024–2026 Showcase</span>
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur-md text-slate-300 font-semibold text-xs border border-slate-700/60">
+                    Cars & Bikes
+                  </span>
+                </div>
+
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-slate-200 bg-slate-900/90 backdrop-blur-md px-4 py-3 rounded-md border border-slate-700/80">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-md bg-blue-500/20 flex items-center justify-center text-blue-400">
+                      <IonIcon name="car-sport-outline" size={16} />
+                    </div>
+                    <div>
+                      <div className="font-bold text-white text-xs sm:text-sm">Explore High-Performance Showcase</div>
+                      <div className="text-[11px] text-slate-400">Click to browse 32+ verified models & specs</div>
+                    </div>
                   </div>
-                  <span className="text-slate-400">Side-by-side Technical Explorer</span>
+                  <div className="flex items-center gap-1 text-blue-400 font-semibold text-xs group-hover:translate-x-0.5 transition-transform">
+                    <span>View</span>
+                    <IonIcon name="arrow-forward-outline" size={14} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -138,10 +166,10 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Segmented Cars / Motorcycles Switch */}
-          <div className="flex items-center p-1 rounded-xl bg-slate-900 border border-slate-800 self-start sm:self-auto">
+          <div className="flex items-center p-1 rounded-md bg-slate-900 border border-slate-800 self-start sm:self-auto">
             <button
               onClick={() => setFeaturedTab('car')}
-              className={`px-4 py-2 text-sm font-semibold rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 ${
+              className={`px-4 py-2 text-sm font-semibold rounded-md transition-colors cursor-pointer flex items-center gap-1.5 ${
                 featuredTab === 'car'
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'text-slate-400 hover:text-white'
@@ -152,7 +180,7 @@ export const HomePage: React.FC = () => {
             </button>
             <button
               onClick={() => setFeaturedTab('motorcycle')}
-              className={`px-4 py-2 text-sm font-semibold rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 ${
+              className={`px-4 py-2 text-sm font-semibold rounded-md transition-colors cursor-pointer flex items-center gap-1.5 ${
                 featuredTab === 'motorcycle'
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'text-slate-400 hover:text-white'
@@ -175,35 +203,35 @@ export const HomePage: React.FC = () => {
       {/* 3. Four Core Value Pillars */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          <div className="p-5 sm:p-6 rounded-2xl bg-[#0f172a] border border-slate-800/80 flex flex-col items-center text-center">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-4">
-              <IonIcon name="car-sport-outline" size={24} />
+          <div className="p-5 sm:p-6 rounded-md bg-[#0f172a] border border-slate-800/80 flex flex-col items-center text-center">
+            <div className="w-10 h-10 rounded-md bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-3">
+              <IonIcon name="car-sport-outline" size={22} />
             </div>
-            <h3 className="text-base font-bold text-white">Wide Selection</h3>
+            <h3 className="text-sm sm:text-base font-bold text-white">Wide Selection</h3>
             <p className="mt-1 text-xs text-slate-400">Cars & Motorcycles</p>
           </div>
 
-          <div className="p-5 sm:p-6 rounded-2xl bg-[#0f172a] border border-slate-800/80 flex flex-col items-center text-center">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-4">
-              <IonIcon name="speedometer-outline" size={24} />
+          <div className="p-5 sm:p-6 rounded-md bg-[#0f172a] border border-slate-800/80 flex flex-col items-center text-center">
+            <div className="w-10 h-10 rounded-md bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-3">
+              <IonIcon name="speedometer-outline" size={22} />
             </div>
-            <h3 className="text-base font-bold text-white">Detailed Specs</h3>
+            <h3 className="text-sm sm:text-base font-bold text-white">Detailed Specs</h3>
             <p className="mt-1 text-xs text-slate-400">Full information</p>
           </div>
 
-          <div className="p-5 sm:p-6 rounded-2xl bg-[#0f172a] border border-slate-800/80 flex flex-col items-center text-center">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-4">
-              <IonIcon name="flash-outline" size={24} />
+          <div className="p-5 sm:p-6 rounded-md bg-[#0f172a] border border-slate-800/80 flex flex-col items-center text-center">
+            <div className="w-10 h-10 rounded-md bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-3">
+              <IonIcon name="flash-outline" size={22} />
             </div>
-            <h3 className="text-base font-bold text-white">Latest Models</h3>
+            <h3 className="text-sm sm:text-base font-bold text-white">Latest Models</h3>
             <p className="mt-1 text-xs text-slate-400">Up to date</p>
           </div>
 
-          <div className="p-5 sm:p-6 rounded-2xl bg-[#0f172a] border border-slate-800/80 flex flex-col items-center text-center">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-4">
-              <IonIcon name="search-outline" size={24} />
+          <div className="p-5 sm:p-6 rounded-md bg-[#0f172a] border border-slate-800/80 flex flex-col items-center text-center">
+            <div className="w-10 h-10 rounded-md bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-3">
+              <IonIcon name="search-outline" size={22} />
             </div>
-            <h3 className="text-base font-bold text-white">Easy Search</h3>
+            <h3 className="text-sm sm:text-base font-bold text-white">Easy Search</h3>
             <p className="mt-1 text-xs text-slate-400">Find what you need</p>
           </div>
         </div>

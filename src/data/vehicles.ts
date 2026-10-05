@@ -10,9 +10,8 @@ export const VEHICLES_DATA: Vehicle[] = [
     year: 2024,
     cost: 22500,
     category: 'Sedan',
-    image: '/src/assets/images/car_toyota_corolla_1791120161613.jpg',
+    image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=1200&q=80',
     gallery: [
-      '/src/assets/images/car_toyota_corolla_1791120161613.jpg',
       'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1590362891988-f77804702081?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1200&q=80'
@@ -607,9 +606,8 @@ export const VEHICLES_DATA: Vehicle[] = [
     originalCost: 7900,
     costReducedDate: 'Recently Reduced',
     category: 'Naked',
-    image: '/src/assets/images/bike_yamaha_mt07_1791120174077.jpg',
+    image: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1200&q=80',
     gallery: [
-      '/src/assets/images/bike_yamaha_mt07_1791120174077.jpg',
       'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=80'
     ],
@@ -1172,6 +1170,6 @@ export const VEHICLES_DATA: Vehicle[] = [
   }
 ];
 
-export const HERO_DUO_IMAGE = '/src/assets/images/hero_showcase_duo_1791120147677.jpg';
-export const ABOUT_STUDIO_IMAGE = '/src/assets/images/about_automotive_studio_1791120185565.jpg';
-export const AUTOVISTA_LOGO_IMAGE = '/src/assets/images/autovista_emblem_logo_1791123133873.jpg';
+export const HERO_DUO_IMAGE = 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1600&q=85';
+export const ABOUT_STUDIO_IMAGE = 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=85';
+export const AUTOVISTA_LOGO_IMAGE = '/logo.jpg';

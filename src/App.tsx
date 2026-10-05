@@ -3,6 +3,7 @@ import { AppProvider, useApp } from './context/AppContext';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { Toast } from './components/common/Toast';
+import { AuthModal } from './components/common/AuthModal';
 import { HomePage } from './pages/HomePage';
 import { BrowsePage } from './pages/BrowsePage';
 import { VehicleDetailPage } from './pages/VehicleDetailPage';
@@ -58,6 +59,7 @@ const AppContent: React.FC = () => {
       </main>
       <Footer />
       <Toast />
+      <AuthModal />
     </div>
   );
 };

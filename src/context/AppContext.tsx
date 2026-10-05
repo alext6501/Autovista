@@ -21,6 +21,7 @@ interface AppContextType {
   currentRoute: PageRoute;
   selectedVehicleId: string | null;
   selectedBrand: string | null;
+  selectedCategory: string | null;
   searchQuery: string;
   favorites: string[];
   compareList: string[];
@@ -30,9 +31,12 @@ interface AppContextType {
   vehicles: Vehicle[];
   theme: 'dark' | 'light';
   isAdminAuthenticated: boolean;
+  isLoggedIn: boolean;
+  isAuthModalOpen: boolean;
   
   // Actions
-  navigateTo: (route: PageRoute, vehicleId?: string | null, brand?: string | null) => void;
+  navigateTo: (route: PageRoute, vehicleId?: string | null, brand?: string | null, category?: string | null) => void;
+  setSelectedCategory: (category: string | null) => void;
   setSearchQuery: (query: string) => void;
   toggleFavorite: (vehicleId: string) => void;
   addToCompare: (vehicleId: string) => void;
@@ -46,6 +50,9 @@ interface AppContextType {
   toggleTheme: () => void;
   adminLogin: (email: string, password: string) => boolean;
   adminLogout: () => void;
+  userLogin: (email: string, password: string) => boolean;
+  userLogout: () => void;
+  setAuthModalOpen: (open: boolean) => void;
 
   // Admin Actions
   addVehicle: (vehicleData: Omit<Vehicle, 'id'>) => string;
@@ -99,6 +106,65 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
+  // User Authentication State
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('autovista_user_logged_in') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  const [isAuthModalOpen, setAuthModalOpen] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const userLogin = (email: string, _pass: string): boolean => {
+    const cleanEmail = email.trim();
+    if (!cleanEmail) {
+      showToast('Please enter an email address');
+      return false;
+    }
+    setIsLoggedIn(true);
+    try {
+      localStorage.setItem('autovista_user_logged_in', 'true');
+    } catch {
+      // ignore
+    }
+
+    const namePart = cleanEmail.split('@')[0];
+    const formattedName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+    updateUserProfile({ email: cleanEmail, name: formattedName || 'Alex Bonheur' });
+
+    if (
+      cleanEmail.toLowerCase() === 'admin@autovista.com' ||
+      cleanEmail.toLowerCase() === 'admin@veyromotors.com' ||
+      cleanEmail.toLowerCase() === 'admin'
+    ) {
+      setIsAdminAuthenticated(true);
+      try {
+        sessionStorage.setItem('autovista_admin_auth', 'true');
+      } catch {
+        // ignore
+      }
+    }
+
+    setAuthModalOpen(false);
+    showToast(`Signed in as ${formattedName}`, 'success');
+    return true;
+  };
+
+  const userLogout = () => {
+    setIsLoggedIn(false);
+    setIsAdminAuthenticated(false);
+    try {
+      localStorage.removeItem('autovista_user_logged_in');
+      sessionStorage.removeItem('autovista_admin_auth');
+    } catch {
+      // ignore
+    }
+    showToast('Signed out successfully');
+  };
+
   // Apply theme to document root
   useEffect(() => {
     try {
@@ -123,8 +189,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const cleanPass = pass.trim();
 
     // Standard demo credentials
-    const isEmailValid = cleanEmail === 'admin@autovista.com' || cleanEmail === 'admin';
-    const isPassValid = cleanPass === 'autovista2026' || cleanPass === 'admin123';
+    const isEmailValid =
+      cleanEmail === 'admin@veyromotors.com' ||
+      cleanEmail === 'admin@autovista.com' ||
+      cleanEmail === 'admin';
+    const isPassValid =
+      cleanPass === 'veyromotors2026' ||
+      cleanPass === 'autovista2026' ||
+      cleanPass === 'admin123';
 
     if (isEmailValid && isPassValid) {
       setIsAdminAuthenticated(true);
@@ -262,7 +334,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }, 2800);
   };
 
-  const navigateTo = (route: PageRoute, vehicleId: string | null = null, brand: string | null = null) => {
+  const navigateTo = (
+    route: PageRoute,
+    vehicleId: string | null = null,
+    brand: string | null = null,
+    category: string | null = null
+  ) => {
     setCurrentRoute(route);
     if (vehicleId) {
       setSelectedVehicleId(vehicleId);
@@ -271,6 +348,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
     if (brand !== undefined) {
       setSelectedBrand(brand);
+    }
+    if (category !== undefined) {
+      setSelectedCategory(category);
     }
     // Scroll window smoothly to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -408,6 +488,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         currentRoute,
         selectedVehicleId,
         selectedBrand,
+        selectedCategory,
         searchQuery,
         favorites,
         compareList,
@@ -417,7 +498,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         vehicles,
         theme,
         isAdminAuthenticated,
+        isLoggedIn,
+        isAuthModalOpen,
         navigateTo,
+        setSelectedCategory,
         setSearchQuery,
         toggleFavorite,
         addToCompare,
@@ -431,6 +515,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toggleTheme,
         adminLogin,
         adminLogout,
+        userLogin,
+        userLogout,
+        setAuthModalOpen,
         addVehicle,
         updateVehicleCost,
         deleteVehicle,

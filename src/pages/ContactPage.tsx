@@ -88,7 +88,7 @@ export const ContactPage: React.FC = () => {
 
               {/* Location */}
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
                   <IonIcon name="location-outline" size={20} />
                 </div>
                 <div>
@@ -96,7 +96,7 @@ export const ContactPage: React.FC = () => {
                     Headquarters
                   </span>
                   <span className="text-sm sm:text-base font-bold text-white mt-0.5 block">
-                    AutoVista Tech Hub
+                    VeyroMotors Tech Hub
                   </span>
                   <span className="text-xs text-slate-400">
                     420 Automotive Way, Suite 800, Detroit, MI 48226
@@ -109,13 +109,13 @@ export const ContactPage: React.FC = () => {
           {/* Social Follow */}
           <div className="pt-6 border-t border-slate-800">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-3">
-              Follow AutoVista
+              Follow VeyroMotors
             </span>
             <div className="flex items-center gap-3">
               <a
                 href="#facebook"
                 onClick={(e) => e.preventDefault()}
-                className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-blue-400 hover:border-slate-700 flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-md bg-slate-900 border border-slate-800 text-slate-400 hover:text-blue-400 hover:border-slate-700 flex items-center justify-center transition-colors"
                 aria-label="Facebook"
               >
                 <IonIcon name="logo-facebook" size={18} />
@@ -123,7 +123,7 @@ export const ContactPage: React.FC = () => {
               <a
                 href="#twitter"
                 onClick={(e) => e.preventDefault()}
-                className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-blue-400 hover:border-slate-700 flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-md bg-slate-900 border border-slate-800 text-slate-400 hover:text-blue-400 hover:border-slate-700 flex items-center justify-center transition-colors"
                 aria-label="Twitter"
               >
                 <IonIcon name="logo-twitter" size={18} />

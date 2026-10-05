@@ -2,6 +2,7 @@ import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { IonIcon } from './IonIcon';
 import { PageRoute } from '../../types/vehicle';
+import { CarBrandsMarquee } from './CarBrandsMarquee';
 
 export const Footer: React.FC = () => {
   const { navigateTo } = useApp();
@@ -18,21 +19,22 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="w-full bg-[#070b12] border-t border-slate-800/80 text-slate-400">
+      {/* Non-stop Continuous Flowing Car Brands Marquee */}
+      <CarBrandsMarquee />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
           
           {/* Brand Info */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl overflow-hidden bg-slate-900 border border-blue-500/30 flex items-center justify-center shadow-md shadow-blue-500/20">
-                <img
-                  src="/logo.jpg"
-                  alt="AutoVista Emblem"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <img
+                src="/logo.jpg"
+                alt="VeyroMotors Emblem"
+                className="w-8 h-8 object-contain rounded-md"
+              />
               <span className="text-xl font-bold tracking-tight text-white font-display">
-                Auto<span className="text-blue-500">Vista</span>
+                Veyro<span className="text-blue-500">Motors</span>
               </span>
             </div>
             
@@ -41,14 +43,14 @@ export const Footer: React.FC = () => {
             </p>
             
             <p className="mt-2 text-sm text-slate-400 max-w-md leading-relaxed">
-              AutoVista is an independent automotive and motorcycle specification catalog. Discover comprehensive technical data, compare models side-by-side, and explore verified reference costs without sales friction.
+              VeyroMotors is an independent automotive and motorcycle specification catalog. Discover comprehensive technical data, compare models side-by-side, and explore verified reference costs without sales friction.
             </p>
 
             <div className="mt-6 flex items-center gap-3">
               <a
                 href="#facebook"
                 onClick={(e) => e.preventDefault()}
-                className="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-slate-700 transition-colors"
+                className="w-9 h-9 rounded-md bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-slate-700 transition-colors"
                 aria-label="Facebook"
               >
                 <IonIcon name="logo-facebook" size={17} />
@@ -56,7 +58,7 @@ export const Footer: React.FC = () => {
               <a
                 href="#twitter"
                 onClick={(e) => e.preventDefault()}
-                className="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-slate-700 transition-colors"
+                className="w-9 h-9 rounded-md bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-slate-700 transition-colors"
                 aria-label="Twitter"
               >
                 <IonIcon name="logo-twitter" size={17} />
@@ -64,7 +66,7 @@ export const Footer: React.FC = () => {
               <a
                 href="#instagram"
                 onClick={(e) => e.preventDefault()}
-                className="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-slate-700 transition-colors"
+                className="w-9 h-9 rounded-md bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-slate-700 transition-colors"
                 aria-label="Instagram"
               >
                 <IonIcon name="logo-instagram" size={17} />
@@ -72,7 +74,7 @@ export const Footer: React.FC = () => {
               <a
                 href="#youtube"
                 onClick={(e) => e.preventDefault()}
-                className="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-slate-700 transition-colors"
+                className="w-9 h-9 rounded-md bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-slate-700 transition-colors"
                 aria-label="YouTube"
               >
                 <IonIcon name="logo-youtube" size={17} />
@@ -106,7 +108,7 @@ export const Footer: React.FC = () => {
             </h3>
             <div className="space-y-3 text-xs text-slate-400 leading-relaxed">
               <p>
-                AutoVista is purely an informational specification archive. We do not sell, broker, or transact vehicles.
+                VeyroMotors is purely an informational specification archive. We do not sell, broker, or transact vehicles.
               </p>
               <p>
                 All prices shown represent manufacturer suggested retail prices (MSRP) or base reference costs at time of documentation.
@@ -121,7 +123,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom copyright and status bar */}
         <div className="mt-12 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <p>© 2026 AutoVista. All rights reserved.</p>
+          <p>© 2026 VeyroMotors. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <span>Research & Specification Portal</span>
             <span>·</span>
