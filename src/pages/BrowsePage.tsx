@@ -131,7 +131,7 @@ export const BrowsePage: React.FC<BrowsePageProps> = ({ initialType }) => {
         </div>
 
         {/* Cars / Motorcycles Category Switch */}
-        <div className="flex items-center p-1 rounded-xl bg-slate-900 border border-slate-800 self-start md:self-auto">
+        <div className="flex items-center p-1 rounded-md bg-slate-900 border border-slate-800 self-start md:self-auto">
           <button
             onClick={() => {
               setActiveType('car');
@@ -182,7 +182,7 @@ export const BrowsePage: React.FC<BrowsePageProps> = ({ initialType }) => {
       </div>
 
       {/* Responsive Filter Bar (Desktop & Mobile trigger) */}
-      <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-lg">
+      <div className="bg-[#0f172a] border border-slate-800 rounded-md p-4 sm:p-5 shadow-lg">
         {/* Mobile Filter Toggle */}
         <div className="lg:hidden flex items-center justify-between">
           <button
@@ -373,7 +373,7 @@ export const BrowsePage: React.FC<BrowsePageProps> = ({ initialType }) => {
           ))}
         </div>
       ) : (
-        <div className="w-full py-16 px-4 text-center rounded-2xl bg-[#0f172a] border border-slate-800 flex flex-col items-center justify-center">
+        <div className="w-full py-16 px-4 text-center rounded-md bg-[#0f172a] border border-slate-800 flex flex-col items-center justify-center">
           <div className="w-16 h-16 rounded-full bg-slate-800/80 flex items-center justify-center text-slate-400 mb-4">
             <IonIcon name="search-outline" size={28} />
           </div>

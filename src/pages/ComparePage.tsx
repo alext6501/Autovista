@@ -95,7 +95,7 @@ export const ComparePage: React.FC = () => {
 
       {/* Comparison Container */}
       {vehiclesToCompare.length === 0 ? (
-        <div className="w-full py-16 px-4 text-center rounded-2xl bg-[#0f172a] border border-slate-800 flex flex-col items-center justify-center">
+        <div className="w-full py-16 px-4 text-center rounded-md bg-[#0f172a] border border-slate-800 flex flex-col items-center justify-center">
           <div className="w-16 h-16 rounded-full bg-slate-800/80 flex items-center justify-center text-blue-400 mb-4">
             <IonIcon name="git-compare-outline" size={32} />
           </div>
@@ -106,13 +106,13 @@ export const ComparePage: React.FC = () => {
           <div className="mt-6 flex flex-wrap gap-3">
             <button
               onClick={() => navigateTo('cars')}
-              className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition-colors"
+              className="px-5 py-2.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition-colors"
             >
               Browse Cars
             </button>
             <button
               onClick={() => navigateTo('motorcycles')}
-              className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold transition-colors"
+              className="px-5 py-2.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold transition-colors"
             >
               Browse Motorcycles
             </button>
@@ -120,7 +120,7 @@ export const ComparePage: React.FC = () => {
         </div>
       ) : (
         <div className="w-full overflow-x-auto pb-4">
-          <div className="min-w-[640px] lg:min-w-full bg-[#0f172a] border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+          <div className="min-w-[640px] lg:min-w-full bg-[#0f172a] border border-slate-800 rounded-md overflow-hidden shadow-2xl">
             
             {/* Vehicle Cards Header Row */}
             <div className={`grid grid-cols-${vehiclesToCompare.length + 1} border-b border-slate-800 bg-slate-900/60 p-4 sm:p-6 gap-4`}
@@ -140,7 +140,7 @@ export const ComparePage: React.FC = () => {
 
               {/* Vehicle Columns */}
               {vehiclesToCompare.map((v) => (
-                <div key={v.id} className="relative bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
+                <div key={v.id} className="relative bg-slate-900 border border-slate-800 rounded-md p-4 flex flex-col justify-between">
                   <button
                     onClick={() => removeFromCompare(v.id)}
                     className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-slate-800/80 hover:bg-red-500/20 text-slate-400 hover:text-red-400 flex items-center justify-center transition-colors cursor-pointer"
@@ -255,7 +255,7 @@ export const ComparePage: React.FC = () => {
       {/* Add / Change Vehicle Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="w-full max-w-2xl bg-[#0f172a] border border-slate-700 rounded-2xl shadow-2xl p-6 max-h-[85vh] flex flex-col">
+          <div className="w-full max-w-2xl bg-[#0f172a] border border-slate-700 rounded-md shadow-2xl p-6 max-h-[85vh] flex flex-col">
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
               <h3 className="text-lg font-bold text-white">Select Vehicle to Compare</h3>
               <button
@@ -274,7 +274,7 @@ export const ComparePage: React.FC = () => {
                     addToCompare(v.id);
                     setShowAddModal(false);
                   }}
-                  className="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 cursor-pointer transition-colors"
+                  className="flex items-center justify-between p-3 rounded-md bg-slate-900/80 hover:bg-slate-800 border border-slate-800 cursor-pointer transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-16 h-11 rounded-lg overflow-hidden bg-slate-950 shrink-0">

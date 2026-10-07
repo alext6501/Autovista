@@ -108,7 +108,7 @@ export const AboutPage: React.FC = () => {
               key={pillar.title}
               className="p-6 rounded-md bg-[#0f172a] border border-slate-800 hover:border-blue-500/30 transition-all flex flex-col"
             >
-              <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mb-4">
                 <IonIcon name={pillar.icon} size={22} />
               </div>
               <h3 className="text-lg font-bold text-white tracking-tight">
@@ -123,7 +123,7 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* Call to action */}
-      <div className="p-8 sm:p-12 rounded-2xl bg-[#0f172a] border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+      <div className="p-8 sm:p-12 rounded-md bg-[#0f172a] border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
         <div>
           <h3 className="text-xl sm:text-2xl font-bold text-white">
             Ready to explore the latest models?
@@ -135,13 +135,13 @@ export const AboutPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigateTo('cars')}
-            className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors cursor-pointer"
+            className="px-5 py-2.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors cursor-pointer"
           >
             Explore Cars
           </button>
           <button
             onClick={() => navigateTo('motorcycles')}
-            className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-colors cursor-pointer"
+            className="px-5 py-2.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-colors cursor-pointer"
           >
             Explore Motorcycles
           </button>

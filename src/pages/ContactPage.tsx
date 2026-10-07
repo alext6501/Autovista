@@ -44,7 +44,7 @@ export const ContactPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         
         {/* Contact Info Sidebar (4 cols) */}
-        <div className="lg:col-span-5 bg-[#0f172a] border border-slate-800 rounded-2xl p-6 sm:p-8 flex flex-col justify-between gap-8">
+        <div className="lg:col-span-5 bg-[#0f172a] border border-slate-800 rounded-md p-6 sm:p-8 flex flex-col justify-between gap-8">
           <div>
             <span className="text-xs uppercase tracking-wider text-blue-400 font-semibold">
               Editorial & Support Desk
@@ -56,7 +56,7 @@ export const ContactPage: React.FC = () => {
             <div className="space-y-6">
               {/* Phone */}
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
                   <IonIcon name="call-outline" size={20} />
                 </div>
                 <div>
@@ -72,7 +72,7 @@ export const ContactPage: React.FC = () => {
 
               {/* Email */}
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
                   <IonIcon name="mail-outline" size={20} />
                 </div>
                 <div>
@@ -80,7 +80,7 @@ export const ContactPage: React.FC = () => {
                     Direct Email
                   </span>
                   <span className="text-sm sm:text-base font-bold text-white mt-0.5 block">
-                    info@autovista.com
+                    info@veyromotors.com
                   </span>
                   <span className="text-xs text-slate-500">Typical response within 24 hours</span>
                 </div>
@@ -131,7 +131,7 @@ export const ContactPage: React.FC = () => {
               <a
                 href="#instagram"
                 onClick={(e) => e.preventDefault()}
-                className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-blue-400 hover:border-slate-700 flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-md bg-slate-900 border border-slate-800 text-slate-400 hover:text-blue-400 hover:border-slate-700 flex items-center justify-center transition-colors"
                 aria-label="Instagram"
               >
                 <IonIcon name="logo-instagram" size={18} />
@@ -139,7 +139,7 @@ export const ContactPage: React.FC = () => {
               <a
                 href="#youtube"
                 onClick={(e) => e.preventDefault()}
-                className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-blue-400 hover:border-slate-700 flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-md bg-slate-900 border border-slate-800 text-slate-400 hover:text-blue-400 hover:border-slate-700 flex items-center justify-center transition-colors"
                 aria-label="YouTube"
               >
                 <IonIcon name="logo-youtube" size={18} />
@@ -150,7 +150,7 @@ export const ContactPage: React.FC = () => {
         </div>
 
         {/* Contact Form (7 cols) */}
-        <div className="lg:col-span-7 bg-[#0f172a] border border-slate-800 rounded-2xl p-6 sm:p-8">
+        <div className="lg:col-span-7 bg-[#0f172a] border border-slate-800 rounded-md p-6 sm:p-8">
           {submitted ? (
             <div className="py-12 px-4 text-center flex flex-col items-center justify-center">
               <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mb-4">
@@ -162,7 +162,7 @@ export const ContactPage: React.FC = () => {
               </p>
               <button
                 onClick={handleReset}
-                className="mt-6 px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition-colors cursor-pointer"
+                className="mt-6 px-6 py-2.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition-colors cursor-pointer"
               >
                 Send Another Message
               </button>
@@ -184,7 +184,7 @@ export const ContactPage: React.FC = () => {
                     placeholder="e.g. John Doe"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-md text-white text-sm placeholder-slate-500 focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
@@ -198,7 +198,7 @@ export const ContactPage: React.FC = () => {
                     placeholder="john@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-md text-white text-sm placeholder-slate-500 focus:outline-none focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -210,7 +210,7 @@ export const ContactPage: React.FC = () => {
                 <select
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-md text-white text-sm focus:outline-none focus:border-blue-500"
                 >
                   <option value="Specification Correction">Specification Correction</option>
                   <option value="Model Addition Request">Request a Vehicle Model to be Added</option>
@@ -230,7 +230,7 @@ export const ContactPage: React.FC = () => {
                   placeholder="Provide details about your inquiry or vehicle specification note..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none"
+                  className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-md text-white text-sm placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none"
                 />
               </div>
 
@@ -240,7 +240,7 @@ export const ContactPage: React.FC = () => {
                 </span>
                 <button
                   type="submit"
-                  className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/20 flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/20 flex items-center gap-2 cursor-pointer"
                 >
                   <span>Send Message</span>
                   <IonIcon name="arrow-forward-outline" size={16} />

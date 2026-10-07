@@ -35,7 +35,7 @@ export const FavoritesPage: React.FC = () => {
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex items-center p-1 rounded-xl bg-slate-900 border border-slate-800 self-start sm:self-auto">
+        <div className="flex items-center p-1 rounded-md bg-slate-900 border border-slate-800 self-start sm:self-auto">
           <button
             onClick={() => setActiveTab('all')}
             className={`px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-colors cursor-pointer ${
@@ -77,7 +77,7 @@ export const FavoritesPage: React.FC = () => {
           {favoriteVehicles.map((vehicle) => (
             <div
               key={vehicle.id}
-              className="group bg-[#0f172a] border border-slate-800 rounded-2xl overflow-hidden hover:border-slate-700 transition-all flex flex-col justify-between"
+              className="group bg-[#0f172a] border border-slate-800 rounded-md overflow-hidden hover:border-slate-700 transition-all flex flex-col justify-between"
             >
               <div className="relative aspect-[16/10] w-full bg-slate-900 overflow-hidden">
                 <img
@@ -145,7 +145,7 @@ export const FavoritesPage: React.FC = () => {
           ))}
         </div>
       ) : (
-        <div className="w-full py-16 px-4 text-center rounded-2xl bg-[#0f172a] border border-slate-800 flex flex-col items-center justify-center">
+        <div className="w-full py-16 px-4 text-center rounded-md bg-[#0f172a] border border-slate-800 flex flex-col items-center justify-center">
           <div className="w-16 h-16 rounded-full bg-slate-800/80 flex items-center justify-center text-slate-400 mb-4">
             <IonIcon name="heart-outline" size={32} />
           </div>
@@ -156,13 +156,13 @@ export const FavoritesPage: React.FC = () => {
           <div className="mt-6 flex flex-wrap gap-3">
             <button
               onClick={() => navigateTo('cars')}
-              className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition-colors"
+              className="px-5 py-2.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition-colors"
             >
               Explore Cars
             </button>
             <button
               onClick={() => navigateTo('motorcycles')}
-              className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold transition-colors"
+              className="px-5 py-2.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold transition-colors"
             >
               Explore Motorcycles
             </button>

@@ -65,7 +65,7 @@ export const SearchResultsPage: React.FC = () => {
               value={localInput}
               onChange={(e) => setLocalInput(e.target.value)}
               placeholder="Search by car, motorcycle, brand, engine, or category..."
-              className="w-full px-4 py-3 pl-11 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              className="w-full px-4 py-3 pl-11 bg-slate-900 border border-slate-700 rounded-md text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
             />
             <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
               <IonIcon name="search-outline" size={18} />
@@ -83,7 +83,7 @@ export const SearchResultsPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Sidebar Filters (3 cols) */}
-        <div className="lg:col-span-3 bg-[#0f172a] border border-slate-800 rounded-2xl p-5 space-y-6">
+        <div className="lg:col-span-3 bg-[#0f172a] border border-slate-800 rounded-md p-5 space-y-6">
           <div className="flex items-center justify-between pb-3 border-b border-slate-800">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">
               Filter Results
@@ -173,7 +173,7 @@ export const SearchResultsPage: React.FC = () => {
               ))}
             </div>
           ) : (
-            <div className="w-full py-16 px-4 text-center rounded-2xl bg-[#0f172a] border border-slate-800 flex flex-col items-center justify-center">
+            <div className="w-full py-16 px-4 text-center rounded-md bg-[#0f172a] border border-slate-800 flex flex-col items-center justify-center">
               <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 mb-4">
                 <IonIcon name="search-outline" size={28} />
               </div>

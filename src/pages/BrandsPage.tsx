@@ -1,84 +1,67 @@
 import React, { useState } from 'react';
-import { useApp } from '../context/AppContext';
 import { CAR_BRANDS, MOTORCYCLE_BRANDS } from '../data/brands';
 import { VEHICLES_DATA } from '../data/vehicles';
-import { IonIcon } from '../components/common/IonIcon';
+import { useApp } from '../context/AppContext';
 import { VehicleCard } from '../components/common/VehicleCard';
+import { IonIcon } from '../components/common/IonIcon';
+import { VehicleType } from '../types/vehicle';
+import { BrandLogo } from '../components/common/BrandLogo';
 
 export const BrandsPage: React.FC = () => {
   const { navigateTo } = useApp();
-  const [activeBrandFilter, setActiveBrandFilter] = useState<string | null>(null);
+  const [activeBrandFilter, setActiveBrandFilter] = useState<{
+    brand: string;
+    type: VehicleType;
+  } | null>(null);
 
-  // If a brand is clicked to inspect in-page
+  const handleBrandClick = (brandName: string, type: VehicleType) => {
+    setActiveBrandFilter({ brand: brandName, type });
+  };
+
   const brandVehicles = activeBrandFilter
     ? VEHICLES_DATA.filter(
-        (v) => v.brand.toLowerCase() === activeBrandFilter.toLowerCase()
+        (v) =>
+          v.type === activeBrandFilter.type &&
+          v.brand.toLowerCase() === activeBrandFilter.brand.toLowerCase()
       )
     : [];
 
-  const handleBrandClick = (brandName: string, vehicleType: 'car' | 'motorcycle' | 'both') => {
-    setActiveBrandFilter(brandName);
-    // Smooth scroll to the results section
-    const elem = document.getElementById('brand-results');
-    if (elem) {
-      elem.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full flex flex-col gap-10 sm:gap-14">
-      
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col gap-10 sm:gap-14">
       {/* Page Header */}
-      <div className="flex flex-col gap-2 pb-6 border-b border-slate-800">
+      <div className="flex flex-col gap-2 max-w-2xl">
+        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-sm bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider w-fit">
+          <IonIcon name="ribbon-outline" size={14} />
+          <span>Manufacturer Catalog</span>
+        </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-display">
-          Our Brands
+          Global Vehicle <span className="text-blue-500">Brands</span>
         </h1>
-        <p className="text-sm sm:text-base text-slate-400">
-          Explore vehicles from the world's top automotive and motorcycle manufacturers.
+        <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
+          Browse verified vehicle manufacturers, race constructors, and engineering giants. Select any brand emblem to explore their technical lineup.
         </p>
       </div>
 
-      {/* Top Brand Circles Quick Selector */}
-      <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto pb-4 pt-2">
-        {[...CAR_BRANDS.slice(0, 5), ...MOTORCYCLE_BRANDS.slice(0, 4)].map((brand) => (
-          <button
-            key={brand.id}
-            onClick={() => handleBrandClick(brand.name, brand.type)}
-            className="flex flex-col items-center gap-2 shrink-0 group cursor-pointer"
-          >
-            <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full p-1 bg-slate-900 border-2 transition-all duration-200 overflow-hidden flex items-center justify-center ${
-              activeBrandFilter === brand.name
-                ? 'border-blue-500 scale-105 shadow-lg shadow-blue-500/20'
-                : 'border-slate-800 group-hover:border-slate-700'
-            }`}>
-              <img
-                src={brand.logo}
-                alt={brand.name}
-                className="w-full h-full object-cover rounded-full"
-              />
-            </div>
-            <span className="text-xs font-semibold text-slate-300 group-hover:text-blue-400 transition-colors">
-              {brand.name}
-            </span>
-          </button>
-        ))}
-      </div>
-
-      {/* In-page Brand Results (when brand selected) */}
+      {/* Active Brand Models Section */}
       {activeBrandFilter && (
-        <div id="brand-results" className="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#0f172a] to-[#0a0e17] border border-blue-500/30">
-          <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
-            <div>
-              <span className="text-xs uppercase tracking-wider text-blue-400 font-semibold">
-                Brand Models
-              </span>
-              <h2 className="text-2xl font-bold text-white tracking-tight">
-                {activeBrandFilter} Catalog ({brandVehicles.length} Models)
-              </h2>
+        <div className="p-6 sm:p-8 rounded-md bg-slate-900/90 border border-blue-500/40 flex flex-col gap-6 animate-fadeIn">
+          <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-md bg-slate-950 border border-slate-800 flex items-center justify-center p-2 text-slate-200">
+                <BrandLogo brandName={activeBrandFilter.brand} className="w-full h-full object-contain" />
+              </div>
+              <div>
+                <h2 className="text-lg sm:text-xl font-bold text-white">
+                  {activeBrandFilter.brand} Models in Catalog
+                </h2>
+                <p className="text-xs text-slate-400">
+                  {brandVehicles.length} vehicle{brandVehicles.length !== 1 ? 's' : ''} available
+                </p>
+              </div>
             </div>
             <button
               onClick={() => setActiveBrandFilter(null)}
-              className="text-xs text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer"
+              className="text-xs text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer px-2.5 py-1.5 rounded-sm hover:bg-slate-800 transition-colors"
             >
               <IonIcon name="close-outline" size={16} />
               <span>Close View</span>
@@ -107,7 +90,7 @@ export const BrandsPage: React.FC = () => {
               Car Brands
             </h2>
             <p className="text-xs sm:text-sm text-slate-400">
-              Leading passenger, performance, and luxury car makers.
+              Official industry logos of passenger, performance, and luxury car makers.
             </p>
           </div>
           <button
@@ -128,14 +111,13 @@ export const BrandsPage: React.FC = () => {
             return (
               <div
                 key={brand.id}
-                className="p-5 rounded-2xl bg-[#0f172a] border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between"
+                className="p-5 rounded-md bg-[#0f172a] border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
               >
                 <div>
-                  <div className="w-14 h-14 rounded-full overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center p-1 mb-4">
-                    <img
-                      src={brand.logo}
-                      alt={brand.name}
-                      className="w-full h-full object-cover rounded-full"
+                  <div className="w-14 h-14 rounded-md overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center p-2.5 mb-4 text-slate-300 group-hover:text-blue-400 transition-colors">
+                    <BrandLogo
+                      brandName={brand.name}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform"
                     />
                   </div>
                   <h3 className="text-base font-bold text-white tracking-tight">
@@ -157,7 +139,7 @@ export const BrandsPage: React.FC = () => {
                   </span>
                   <button
                     onClick={() => handleBrandClick(brand.name, 'car')}
-                    className="px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-blue-600 text-slate-200 hover:text-white text-xs font-semibold transition-colors flex items-center gap-1 cursor-pointer"
+                    className="px-3 py-1.5 rounded-sm bg-slate-800/90 hover:bg-blue-600 text-slate-200 hover:text-white text-xs font-semibold transition-colors flex items-center gap-1 cursor-pointer"
                   >
                     <span>View Models</span>
                     <IonIcon name="chevron-forward-outline" size={12} />
@@ -198,14 +180,13 @@ export const BrandsPage: React.FC = () => {
             return (
               <div
                 key={brand.id}
-                className="p-5 rounded-2xl bg-[#0f172a] border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between"
+                className="p-5 rounded-md bg-[#0f172a] border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
               >
                 <div>
-                  <div className="w-14 h-14 rounded-full overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center p-1 mb-4">
-                    <img
-                      src={brand.logo}
-                      alt={brand.name}
-                      className="w-full h-full object-cover rounded-full"
+                  <div className="w-14 h-14 rounded-md overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center p-2.5 mb-4 text-slate-300 group-hover:text-blue-400 transition-colors">
+                    <BrandLogo
+                      brandName={brand.name}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform"
                     />
                   </div>
                   <h3 className="text-base font-bold text-white tracking-tight">
@@ -227,7 +208,7 @@ export const BrandsPage: React.FC = () => {
                   </span>
                   <button
                     onClick={() => handleBrandClick(brand.name, 'motorcycle')}
-                    className="px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-blue-600 text-slate-200 hover:text-white text-xs font-semibold transition-colors flex items-center gap-1 cursor-pointer"
+                    className="px-3 py-1.5 rounded-sm bg-slate-800/90 hover:bg-blue-600 text-slate-200 hover:text-white text-xs font-semibold transition-colors flex items-center gap-1 cursor-pointer"
                   >
                     <span>View Models</span>
                     <IonIcon name="chevron-forward-outline" size={12} />
@@ -238,7 +219,6 @@ export const BrandsPage: React.FC = () => {
           })}
         </div>
       </section>
-
     </div>
   );
 };

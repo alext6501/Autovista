@@ -50,7 +50,7 @@ export const ProfilePage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Left Sidebar (Desktop) / Nav Tabs (Mobile) (4 cols) */}
-        <div className="lg:col-span-4 bg-[#0f172a] border border-slate-800 rounded-2xl p-5 sm:p-6 flex flex-col gap-6">
+        <div className="lg:col-span-4 bg-[#0f172a] border border-slate-800 rounded-md p-5 sm:p-6 flex flex-col gap-6">
           
           {/* User Mini Avatar Lockup */}
           <div className="flex items-center gap-4 pb-6 border-b border-slate-800">
@@ -77,7 +77,7 @@ export const ProfilePage: React.FC = () => {
           <div className="flex flex-col gap-1.5">
             <button
               onClick={() => setActiveTab('dashboard')}
-              className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-colors cursor-pointer text-left ${
+              className={`flex items-center justify-between px-4 py-3 rounded-md text-sm font-semibold transition-colors cursor-pointer text-left ${
                 activeTab === 'dashboard'
                   ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20'
                   : 'text-slate-300 hover:bg-slate-800/80 hover:text-white'
@@ -92,7 +92,7 @@ export const ProfilePage: React.FC = () => {
 
             <button
               onClick={() => navigateTo('favorites')}
-              className="flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-colors cursor-pointer text-left"
+              className="flex items-center justify-between px-4 py-3 rounded-md text-sm font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-colors cursor-pointer text-left"
             >
               <div className="flex items-center gap-3">
                 <IonIcon name="heart-outline" size={18} />
@@ -105,7 +105,7 @@ export const ProfilePage: React.FC = () => {
 
             <button
               onClick={() => navigateTo('compare')}
-              className="flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-colors cursor-pointer text-left"
+              className="flex items-center justify-between px-4 py-3 rounded-md text-sm font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-colors cursor-pointer text-left"
             >
               <div className="flex items-center gap-3">
                 <IonIcon name="git-compare-outline" size={18} />
@@ -118,7 +118,7 @@ export const ProfilePage: React.FC = () => {
 
             <button
               onClick={() => setActiveTab('settings')}
-              className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-colors cursor-pointer text-left ${
+              className={`flex items-center justify-between px-4 py-3 rounded-md text-sm font-semibold transition-colors cursor-pointer text-left ${
                 activeTab === 'settings'
                   ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20'
                   : 'text-slate-300 hover:bg-slate-800/80 hover:text-white'
@@ -133,7 +133,7 @@ export const ProfilePage: React.FC = () => {
 
             <button
               onClick={() => navigateTo('admin')}
-              className="flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 transition-colors cursor-pointer text-left"
+              className="flex items-center justify-between px-4 py-3 rounded-md text-sm font-semibold text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 transition-colors cursor-pointer text-left"
             >
               <div className="flex items-center gap-3">
                 <IonIcon name="speedometer-outline" size={18} />
@@ -145,7 +145,7 @@ export const ProfilePage: React.FC = () => {
             <div className="pt-4 border-t border-slate-800 mt-2">
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors cursor-pointer text-left"
+                className="w-full flex items-center gap-3 px-4 py-2.5 rounded-md text-sm font-semibold text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors cursor-pointer text-left"
               >
                 <IonIcon name="log-out-outline" size={18} />
                 <span>Logout Session</span>
@@ -161,7 +161,7 @@ export const ProfilePage: React.FC = () => {
           {activeTab === 'dashboard' ? (
             <>
               {/* Profile Details Card */}
-              <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-6 sm:p-8">
+              <div className="bg-[#0f172a] border border-slate-800 rounded-md p-6 sm:p-8">
                 <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
                   <h3 className="text-xl font-bold text-white tracking-tight">
                     My Profile
@@ -185,7 +185,7 @@ export const ProfilePage: React.FC = () => {
                         value={nameInput}
                         onChange={(e) => setNameInput(e.target.value)}
                         required
-                        className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
+                        className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-md text-white text-sm focus:outline-none focus:border-blue-500"
                       />
                     </div>
                     <div>
@@ -197,7 +197,7 @@ export const ProfilePage: React.FC = () => {
                         value={emailInput}
                         onChange={(e) => setEmailInput(e.target.value)}
                         required
-                        className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500"
+                        className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-md text-white text-sm focus:outline-none focus:border-blue-500"
                       />
                     </div>
                     <div className="flex justify-end gap-3 pt-2">
@@ -249,13 +249,13 @@ export const ProfilePage: React.FC = () => {
               </div>
 
               {/* Your Activity Statistics */}
-              <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-6 sm:p-8">
+              <div className="bg-[#0f172a] border border-slate-800 rounded-md p-6 sm:p-8">
                 <h3 className="text-xl font-bold text-white tracking-tight mb-6">
                   Your Activity
                 </h3>
 
                 <div className="grid grid-cols-3 gap-4 text-center">
-                  <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                  <div className="p-4 rounded-md bg-slate-900/80 border border-slate-800">
                     <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block">
                       Favorites
                     </span>
@@ -264,7 +264,7 @@ export const ProfilePage: React.FC = () => {
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                  <div className="p-4 rounded-md bg-slate-900/80 border border-slate-800">
                     <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block">
                       Viewed
                     </span>
@@ -273,7 +273,7 @@ export const ProfilePage: React.FC = () => {
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                  <div className="p-4 rounded-md bg-slate-900/80 border border-slate-800">
                     <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block">
                       Compare
                     </span>
@@ -285,14 +285,14 @@ export const ProfilePage: React.FC = () => {
               </div>
 
               {/* Quick Actions */}
-              <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-6 sm:p-8">
+              <div className="bg-[#0f172a] border border-slate-800 rounded-md p-6 sm:p-8">
                 <h3 className="text-xl font-bold text-white tracking-tight mb-4">
                   Quick Actions
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <button
                     onClick={() => navigateTo('favorites')}
-                    className="p-4 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 transition-all flex flex-col items-center text-center group cursor-pointer"
+                    className="p-4 rounded-md bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 transition-all flex flex-col items-center text-center group cursor-pointer"
                   >
                     <div className="w-10 h-10 rounded-lg bg-red-500/10 text-red-400 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
                       <IonIcon name="heart-outline" size={20} />
@@ -303,7 +303,7 @@ export const ProfilePage: React.FC = () => {
 
                   <button
                     onClick={() => navigateTo('compare')}
-                    className="p-4 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 transition-all flex flex-col items-center text-center group cursor-pointer"
+                    className="p-4 rounded-md bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 transition-all flex flex-col items-center text-center group cursor-pointer"
                   >
                     <div className="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
                       <IonIcon name="git-compare-outline" size={20} />
@@ -314,7 +314,7 @@ export const ProfilePage: React.FC = () => {
 
                   <button
                     onClick={() => navigateTo('brands')}
-                    className="p-4 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 transition-all flex flex-col items-center text-center group cursor-pointer"
+                    className="p-4 rounded-md bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 transition-all flex flex-col items-center text-center group cursor-pointer"
                   >
                     <div className="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
                       <IonIcon name="grid-outline" size={20} />
@@ -327,7 +327,7 @@ export const ProfilePage: React.FC = () => {
             </>
           ) : (
             /* Settings Tab */
-            <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
+            <div className="bg-[#0f172a] border border-slate-800 rounded-md p-6 sm:p-8 space-y-6">
               <h3 className="text-xl font-bold text-white tracking-tight pb-4 border-b border-slate-800">
                 Display & Unit Preferences
               </h3>

@@ -5,7 +5,7 @@ import { IonIcon } from './IonIcon';
 export const AuthModal: React.FC = () => {
   const { isAuthModalOpen, setAuthModalOpen, userLogin } = useApp();
   const [email, setEmail] = useState('alex@example.com');
-  const [password, setPassword] = useState('autovista2026');
+  const [password, setPassword] = useState('veyro2026');
   const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState('');
 
@@ -26,14 +26,14 @@ export const AuthModal: React.FC = () => {
 
   const handleQuickDemoUser = () => {
     setEmail('alex@example.com');
-    setPassword('autovista2026');
-    userLogin('alex@example.com', 'autovista2026');
+    setPassword('veyro2026');
+    userLogin('alex@example.com', 'veyro2026');
   };
 
   const handleQuickDemoAdmin = () => {
-    setEmail('admin@autovista.com');
-    setPassword('autovista2026');
-    userLogin('admin@autovista.com', 'autovista2026');
+    setEmail('admin@veyromotors.com');
+    setPassword('veyro2026');
+    userLogin('admin@veyromotors.com', 'veyro2026');
   };
 
   return (

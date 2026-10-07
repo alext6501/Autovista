@@ -79,7 +79,7 @@ export const VehicleDetailPage: React.FC = () => {
         <div className="lg:col-span-7 flex flex-col gap-3">
           
           {/* Main Large Image */}
-          <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
+          <div className="relative aspect-[16/10] w-full rounded-md overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
             {!imageError ? (
               <img
                 src={currentImage}
@@ -117,7 +117,7 @@ export const VehicleDetailPage: React.FC = () => {
                     setSelectedImageIndex(idx);
                     setImageError(false);
                   }}
-                  className={`relative w-20 sm:w-24 aspect-[16/10] rounded-xl overflow-hidden border-2 shrink-0 transition-all cursor-pointer ${
+                  className={`relative w-20 sm:w-24 aspect-[16/10] rounded-md overflow-hidden border-2 shrink-0 transition-all cursor-pointer ${
                     selectedImageIndex === idx
                       ? 'border-blue-500 scale-102 shadow-md shadow-blue-500/20'
                       : 'border-slate-800 opacity-60 hover:opacity-100 hover:border-slate-700'
@@ -136,7 +136,7 @@ export const VehicleDetailPage: React.FC = () => {
         </div>
 
         {/* Right Vehicle Header & Quick Specs (5 cols) */}
-        <div className="lg:col-span-5 flex flex-col justify-between bg-[#0f172a] border border-slate-800 rounded-2xl p-6 sm:p-8">
+        <div className="lg:col-span-5 flex flex-col justify-between bg-[#0f172a] border border-slate-800 rounded-md p-6 sm:p-8">
           <div>
             {/* Brand & Reference Price */}
             <div className="flex items-start justify-between gap-4 pb-4 border-b border-slate-800">
@@ -174,7 +174,7 @@ export const VehicleDetailPage: React.FC = () => {
 
             {/* Cost Reduction Notice Banner */}
             {isCostReduced && (
-              <div className="mt-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs">
+              <div className="mt-4 p-3 rounded-md bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2 text-emerald-400 font-medium">
                   <IonIcon name="checkmark-circle-outline" size={16} />
                   <span>Cost Reduced for {vehicle.brand} {vehicle.model}</span>
@@ -187,7 +187,7 @@ export const VehicleDetailPage: React.FC = () => {
 
             {/* Quick Spec Highlights Grid */}
             <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4">
-              <div className="p-3 sm:p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div className="p-3 sm:p-3.5 rounded-md bg-slate-900/80 border border-slate-800">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                   <IonIcon name="speedometer-outline" size={16} className="text-blue-400" />
                   <span>Engine</span>
@@ -197,7 +197,7 @@ export const VehicleDetailPage: React.FC = () => {
                 </span>
               </div>
 
-              <div className="p-3 sm:p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div className="p-3 sm:p-3.5 rounded-md bg-slate-900/80 border border-slate-800">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                   <IonIcon name="flash-outline" size={16} className="text-blue-400" />
                   <span>Horsepower</span>
@@ -207,7 +207,7 @@ export const VehicleDetailPage: React.FC = () => {
                 </span>
               </div>
 
-              <div className="p-3 sm:p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div className="p-3 sm:p-3.5 rounded-md bg-slate-900/80 border border-slate-800">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                   <IonIcon name="swap-horizontal" size={16} className="text-blue-400" />
                   <span>Transmission</span>
@@ -217,7 +217,7 @@ export const VehicleDetailPage: React.FC = () => {
                 </span>
               </div>
 
-              <div className="p-3 sm:p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div className="p-3 sm:p-3.5 rounded-md bg-slate-900/80 border border-slate-800">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                   <IonIcon name="speedometer-outline" size={16} className="text-blue-400" />
                   <span>Fuel Economy</span>
@@ -229,7 +229,7 @@ export const VehicleDetailPage: React.FC = () => {
             </div>
 
             {/* Additional Specs Row */}
-            <div className="mt-4 py-3 px-4 rounded-xl bg-slate-900/50 border border-slate-800 flex items-center justify-between text-xs text-slate-300">
+            <div className="mt-4 py-3 px-4 rounded-md bg-slate-900/50 border border-slate-800 flex items-center justify-between text-xs text-slate-300">
               <div>
                 <span className="text-slate-400">Weight: </span>
                 <strong className="text-white">{vehicle.weight}</strong>
@@ -252,7 +252,7 @@ export const VehicleDetailPage: React.FC = () => {
           <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center gap-3">
             <button
               onClick={() => toggleFavorite(vehicle.id)}
-              className={`w-full sm:flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              className={`w-full sm:flex-1 py-3 px-4 rounded-md font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
                 favorite
                   ? 'bg-red-500/15 border border-red-500/40 text-red-400 hover:bg-red-500/25'
                   : 'bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-200'
@@ -273,7 +273,7 @@ export const VehicleDetailPage: React.FC = () => {
                 }
                 navigateTo('compare');
               }}
-              className={`w-full sm:flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md ${
+              className={`w-full sm:flex-1 py-3 px-4 rounded-md font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md ${
                 inCompare
                   ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/30'
                   : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/20'
@@ -327,7 +327,7 @@ export const VehicleDetailPage: React.FC = () => {
               
               {/* About text + Key Features */}
               <div className="lg:col-span-7 flex flex-col gap-6">
-                <div className="p-6 rounded-2xl bg-[#0f172a] border border-slate-800">
+                <div className="p-6 rounded-md bg-[#0f172a] border border-slate-800">
                   <h3 className="text-lg font-bold text-white tracking-tight">
                     About This Model
                   </h3>
@@ -339,7 +339,7 @@ export const VehicleDetailPage: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-[#0f172a] border border-slate-800">
+                <div className="p-6 rounded-md bg-[#0f172a] border border-slate-800">
                   <h3 className="text-lg font-bold text-white tracking-tight mb-4">
                     Key Features Checklist
                   </h3>
@@ -359,7 +359,7 @@ export const VehicleDetailPage: React.FC = () => {
               </div>
 
               {/* Right Box: Engine & Performance */}
-              <div className="lg:col-span-5 p-6 rounded-2xl bg-[#0f172a] border border-slate-800 flex flex-col gap-4">
+              <div className="lg:col-span-5 p-6 rounded-md bg-[#0f172a] border border-slate-800 flex flex-col gap-4">
                 <h3 className="text-lg font-bold text-white tracking-tight pb-3 border-b border-slate-800">
                   Engine & Performance
                 </h3>
@@ -439,7 +439,7 @@ export const VehicleDetailPage: React.FC = () => {
 
           {/* TAB 2: Specifications Table */}
           {activeTab === 'specifications' && (
-            <div className="p-6 rounded-2xl bg-[#0f172a] border border-slate-800 overflow-x-auto">
+            <div className="p-6 rounded-md bg-[#0f172a] border border-slate-800 overflow-x-auto">
               <h3 className="text-lg font-bold text-white tracking-tight mb-4">
                 Full Technical Specifications
               </h3>
@@ -500,7 +500,7 @@ export const VehicleDetailPage: React.FC = () => {
 
           {/* TAB 3: Features */}
           {activeTab === 'features' && (
-            <div className="p-6 sm:p-8 rounded-2xl bg-[#0f172a] border border-slate-800">
+            <div className="p-6 sm:p-8 rounded-md bg-[#0f172a] border border-slate-800">
               <h3 className="text-lg font-bold text-white tracking-tight mb-6">
                 Standard & Available Equipment
               </h3>
@@ -508,7 +508,7 @@ export const VehicleDetailPage: React.FC = () => {
                 {vehicle.features.map((feat, idx) => (
                   <div
                     key={idx}
-                    className="p-4 rounded-xl bg-slate-900/70 border border-slate-800 flex items-start gap-3"
+                    className="p-4 rounded-md bg-slate-900/70 border border-slate-800 flex items-start gap-3"
                   >
                     <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
                       <IonIcon name="checkmark-circle-outline" size={18} />
@@ -529,7 +529,7 @@ export const VehicleDetailPage: React.FC = () => {
               {vehicle.gallery.map((imgUrl, idx) => (
                 <div
                   key={idx}
-                  className="rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 aspect-[16/10] group"
+                  className="rounded-md overflow-hidden bg-slate-900 border border-slate-800 aspect-[16/10] group"
                 >
                   <img
                     src={imgUrl}

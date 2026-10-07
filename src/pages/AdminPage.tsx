@@ -323,7 +323,7 @@ export const AdminPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setActiveTab('add')}
-            className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm transition-colors flex items-center gap-2 shadow-lg shadow-blue-600/20 cursor-pointer"
+            className="px-4 py-2.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm transition-colors flex items-center gap-2 shadow-lg shadow-blue-600/20 cursor-pointer"
           >
             <IonIcon name="add-outline" size={18} />
             <span>Add New Vehicle</span>
@@ -331,7 +331,7 @@ export const AdminPage: React.FC = () => {
 
           <button
             onClick={resetCatalog}
-            className="px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-red-500/40 text-slate-400 hover:text-red-400 text-xs font-medium transition-colors"
+            className="px-3.5 py-2.5 rounded-md bg-slate-900 border border-slate-800 hover:border-red-500/40 text-slate-400 hover:text-red-400 text-xs font-medium transition-colors"
             title="Reset catalog to factory dataset"
           >
             Reset
@@ -339,7 +339,7 @@ export const AdminPage: React.FC = () => {
 
           <button
             onClick={adminLogout}
-            className="px-3.5 py-2.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer"
+            className="px-3.5 py-2.5 rounded-md bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer"
             title="Lock admin session"
           >
             <IonIcon name="lock-closed-outline" size={14} />
@@ -350,7 +350,7 @@ export const AdminPage: React.FC = () => {
 
       {/* Quick Metric Tiles */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl bg-[#0f172a] border border-slate-800">
+        <div className="p-4 rounded-md bg-[#0f172a] border border-slate-800">
           <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block">
             Total Vehicles
           </span>
@@ -359,7 +359,7 @@ export const AdminPage: React.FC = () => {
           </span>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#0f172a] border border-slate-800">
+        <div className="p-4 rounded-md bg-[#0f172a] border border-slate-800">
           <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block">
             Cars in Catalog
           </span>
@@ -368,7 +368,7 @@ export const AdminPage: React.FC = () => {
           </span>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#0f172a] border border-slate-800">
+        <div className="p-4 rounded-md bg-[#0f172a] border border-slate-800">
           <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block">
             Motorcycles
           </span>
@@ -377,7 +377,7 @@ export const AdminPage: React.FC = () => {
           </span>
         </div>
 
-        <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/30">
+        <div className="p-4 rounded-md bg-emerald-950/20 border border-emerald-500/30">
           <div className="flex items-center justify-between">
             <span className="text-xs uppercase tracking-wider text-emerald-400 font-semibold block">
               Cost Reduced
@@ -433,7 +433,7 @@ export const AdminPage: React.FC = () => {
       {activeTab === 'manage' && (
         <div className="flex flex-col gap-6">
           {/* Filter and Search Bar */}
-          <div className="p-4 rounded-xl bg-[#0f172a] border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="p-4 rounded-md bg-[#0f172a] border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2 w-full sm:w-auto">
               <button
                 onClick={() => setFilterType('all')}
@@ -488,7 +488,7 @@ export const AdminPage: React.FC = () => {
           </div>
 
           {/* Table / List */}
-          <div className="bg-[#0f172a] border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+          <div className="bg-[#0f172a] border border-slate-800 rounded-md overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs sm:text-sm border-collapse">
                 <thead>
@@ -814,7 +814,7 @@ export const AdminPage: React.FC = () => {
                     placeholder={`Brief summary of the ${newBrand || 'vehicle'} ${newModel || ''}...`}
                     value={newDescription}
                     onChange={(e) => setNewDescription(e.target.value)}
-                    className="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500 resize-none"
+                    className="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-md text-white text-sm focus:outline-none focus:border-blue-500 resize-none"
                   />
                 </div>
               </div>
@@ -827,7 +827,7 @@ export const AdminPage: React.FC = () => {
               </span>
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/20 flex items-center gap-2 cursor-pointer"
+                className="px-6 py-2.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/20 flex items-center gap-2 cursor-pointer"
               >
                 <IonIcon name="checkmark-circle-outline" size={18} />
                 <span>Publish to Catalog</span>
@@ -841,7 +841,7 @@ export const AdminPage: React.FC = () => {
       {/* TAB 3: COST REDUCTIONS TRACKER */}
       {activeTab === 'reductions' && (
         <div className="flex flex-col gap-6">
-          <div className="p-6 rounded-2xl bg-[#0f172a] border border-slate-800">
+          <div className="p-6 rounded-md bg-[#0f172a] border border-slate-800">
             <h2 className="text-xl font-bold text-white tracking-tight mb-2">
               Reduced Cost Models Showcase
             </h2>
@@ -859,10 +859,10 @@ export const AdminPage: React.FC = () => {
                 return (
                   <div
                     key={vehicle.id}
-                    className="bg-[#0f172a] border border-emerald-500/30 rounded-2xl overflow-hidden shadow-xl p-5 flex flex-col justify-between"
+                    className="bg-[#0f172a] border border-emerald-500/30 rounded-md overflow-hidden shadow-xl p-5 flex flex-col justify-between"
                   >
                     <div>
-                      <div className="aspect-[16/10] w-full rounded-xl overflow-hidden bg-slate-950 mb-3 relative">
+                      <div className="aspect-[16/10] w-full rounded-md overflow-hidden bg-slate-950 mb-3 relative">
                         <img
                           src={vehicle.image}
                           alt={vehicle.model}
@@ -882,7 +882,7 @@ export const AdminPage: React.FC = () => {
                         {vehicle.model} ({vehicle.year})
                       </h3>
 
-                      <div className="mt-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+                      <div className="mt-3 p-3 rounded-md bg-slate-900/80 border border-slate-800 flex items-center justify-between">
                         <div>
                           <span className="text-[10px] uppercase text-slate-500 block">Baseline MSRP</span>
                           <span className="text-xs text-slate-400 line-through font-semibold tabular-nums">
@@ -931,7 +931,7 @@ export const AdminPage: React.FC = () => {
               })}
             </div>
           ) : (
-            <div className="py-16 text-center rounded-2xl bg-[#0f172a] border border-slate-800 p-8">
+            <div className="py-16 text-center rounded-md bg-[#0f172a] border border-slate-800 p-8">
               <IonIcon name="trending-down-outline" size={32} className="text-slate-500 mx-auto mb-3" />
               <h3 className="text-lg font-bold text-white">No active cost reductions</h3>
               <p className="text-sm text-slate-400 mt-1 max-w-md mx-auto">
@@ -945,7 +945,7 @@ export const AdminPage: React.FC = () => {
       {/* EDIT COST MODAL */}
       {editingVehicleId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="w-full max-w-md bg-[#0f172a] border border-slate-700 rounded-2xl shadow-2xl p-6">
+          <div className="w-full max-w-md bg-[#0f172a] border border-slate-700 rounded-md shadow-2xl p-6">
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">
               <h3 className="text-lg font-bold text-white">Update Reference Cost</h3>
               <button
@@ -966,7 +966,7 @@ export const AdminPage: React.FC = () => {
 
               return (
                 <form onSubmit={handleSaveCost} className="mt-4 space-y-4">
-                  <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-3">
+                  <div className="p-3 rounded-md bg-slate-900 border border-slate-800 flex items-center gap-3">
                     <img
                       src={currentVeh.image}
                       alt={currentVeh.model}
@@ -991,12 +991,12 @@ export const AdminPage: React.FC = () => {
                       value={costInput}
                       onChange={(e) => setCostInput(e.target.value)}
                       autoFocus
-                      className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white text-base font-bold focus:outline-none focus:border-blue-500"
+                      className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-md text-white text-base font-bold focus:outline-none focus:border-blue-500"
                     />
                   </div>
 
                   {willBeReduced && (
-                    <div className="p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-xs text-emerald-400 flex items-center gap-2 font-medium">
+                    <div className="p-3 rounded-md bg-emerald-500/15 border border-emerald-500/30 text-xs text-emerald-400 flex items-center gap-2 font-medium">
                       <IonIcon name="trending-down-outline" size={16} className="shrink-0" />
                       <span>
                         This is a <strong>${reductionDiff.toLocaleString()} reduction</strong>. A "Cost Reduced" badge will automatically appear on this model.
@@ -1014,7 +1014,7 @@ export const AdminPage: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-colors"
+                      className="px-5 py-2 rounded-md bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-colors"
                     >
                       Save New Cost
                     </button>

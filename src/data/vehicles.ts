@@ -1172,4 +1172,5 @@ export const VEHICLES_DATA: Vehicle[] = [
 
 export const HERO_DUO_IMAGE = 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1600&q=85';
 export const ABOUT_STUDIO_IMAGE = 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=85';
+export const VEYROMOTORS_LOGO_IMAGE = '/logo.jpg';
 export const AUTOVISTA_LOGO_IMAGE = '/logo.jpg';
