@@ -179,3 +179,35 @@ img {
   border-radius: 0.25rem !important; /* Sleek 4px corner radius */
 }
 
+/* Accessibility: Respect Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-car-drive {
+    animation: none !important;
+  }
+}
+
+/* Cinematic Highway Driving Motion Animation */
+@keyframes highwayVehicleDrive {
+  0% {
+    transform: scale(1.02) translate3d(0px, 0px, 0);
+  }
+  25% {
+    transform: scale(1.035) translate3d(-6px, -1.5px, 0);
+  }
+  50% {
+    transform: scale(1.025) translate3d(4px, 1px, 0);
+  }
+  75% {
+    transform: scale(1.04) translate3d(-3px, -1px, 0);
+  }
+  100% {
+    transform: scale(1.02) translate3d(0px, 0px, 0);
+  }
+}
+
+.animate-car-drive {
+  animation: highwayVehicleDrive 6s ease-in-out infinite alternate;
+  will-change: transform;
+}
+

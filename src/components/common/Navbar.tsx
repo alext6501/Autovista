@@ -76,7 +76,6 @@ export const Navbar: React.FC = () => {
     { label: 'Compare', route: 'compare', icon: 'git-compare-outline' },
     { label: 'About', route: 'about', icon: 'information-circle-outline' },
     { label: 'Contact', route: 'contact', icon: 'mail-outline' },
-    { label: 'Admin', route: 'admin', icon: 'settings-outline' },
   ];
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -99,23 +98,25 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full bg-[#0a0e17]/95 backdrop-blur-md border-b border-slate-800/80 transition-colors">
+      <header className="sticky top-0 z-40 w-full bg-[#0a0e17]/80 backdrop-blur-xl border-b border-slate-800/60 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
           
-          {/* Brand Logo Zone - Returned emblem logo, clean reduced border radius */}
+          {/* Brand Logo Zone - VEYRO with original logo.jpg preserved */}
           <button
             onClick={() => handleNavClick('home')}
-            className="flex items-center gap-2.5 text-left focus:outline-none group cursor-pointer"
-            aria-label="VeyroMotors Home"
+            className="flex items-center gap-2.5 text-left focus:outline-none group cursor-pointer shrink-0"
+            aria-label="VEYRO Home"
           >
             <img
               src="/logo.jpg"
-              alt="VeyroMotors Logo"
-              className="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-md group-hover:scale-105 transition-transform"
+              alt="VEYRO Logo"
+              className="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-md group-hover:scale-105 transition-transform border border-slate-800/80"
             />
-            <span className="text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-blue-400 transition-colors font-display">
-              Veyro<span className="text-blue-500">Motors</span>
-            </span>
+            <div className="flex flex-col">
+              <span className="text-xl sm:text-2xl font-black tracking-wider text-white group-hover:text-blue-400 transition-colors font-display leading-tight">
+                VEYRO
+              </span>
+            </div>
           </button>
 
           {/* Desktop Navigation Links */}
@@ -253,7 +254,7 @@ export const Navbar: React.FC = () => {
                 setLocalSearchInput(searchQuery);
                 setShowSearchModal(true);
               }}
-              className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer"
+              className="w-9 h-9 rounded-md flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer"
               title="Search vehicles"
               aria-label="Search vehicles"
             >
@@ -263,7 +264,7 @@ export const Navbar: React.FC = () => {
             {/* Favorites Icon */}
             <button
               onClick={() => handleNavClick('favorites')}
-              className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors relative cursor-pointer ${
+              className={`w-9 h-9 rounded-md flex items-center justify-center transition-colors relative cursor-pointer ${
                 currentRoute === 'favorites'
                   ? 'text-blue-400 bg-blue-500/15'
                   : 'text-slate-300 hover:text-white hover:bg-slate-800/80'
@@ -277,7 +278,7 @@ export const Navbar: React.FC = () => {
                 className={favorites.length > 0 ? 'text-red-500' : ''}
               />
               {favorites.length > 0 && (
-                <span className="absolute top-1 right-1 min-w-[16px] h-[16px] px-1 text-[9px] font-bold rounded-full bg-blue-600 text-white flex items-center justify-center shadow-sm">
+                <span className="absolute top-1 right-1 min-w-[16px] h-[16px] px-1 text-[9px] font-bold rounded-sm bg-blue-600 text-white flex items-center justify-center shadow-sm">
                   {favorites.length}
                 </span>
               )}
@@ -286,7 +287,7 @@ export const Navbar: React.FC = () => {
             {/* Theme Toggle Button (White / Night Mode) */}
             <button
               onClick={toggleTheme}
-              className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer"
+              className="w-9 h-9 rounded-md flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer"
               title={theme === 'dark' ? 'Switch to White Mode' : 'Switch to Night Mode'}
               aria-label={theme === 'dark' ? 'Switch to White Mode' : 'Switch to Night Mode'}
             >
@@ -297,58 +298,57 @@ export const Navbar: React.FC = () => {
               />
             </button>
 
-            {/* LOGIN / LOGOUT USER CASE */}
+            {/* User Icon Button */}
             {isLoggedIn ? (
               <div className="relative" ref={userMenuRef}>
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-xs font-semibold text-white transition-colors cursor-pointer"
+                  className="w-9 h-9 rounded-md flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer relative"
+                  title="User Profile & Settings"
+                  aria-label="User Profile"
                 >
-                  <div className="w-6 h-6 rounded-full overflow-hidden bg-blue-600 flex items-center justify-center text-white text-[11px] font-bold">
-                    {userProfile.avatar ? (
-                      <img src={userProfile.avatar} alt={userProfile.name} className="w-full h-full object-cover" />
-                    ) : (
-                      userProfile.name.charAt(0)
-                    )}
-                  </div>
-                  <span className="hidden sm:inline max-w-[80px] truncate">{userProfile.name.split(' ')[0]}</span>
-                  <IonIcon name="chevron-down-outline" size={12} className="text-slate-400" />
+                  {userProfile.avatar ? (
+                    <img src={userProfile.avatar} alt={userProfile.name} className="w-6 h-6 rounded-sm object-cover" />
+                  ) : (
+                    <IonIcon name="person-outline" size={19} className="text-blue-400" />
+                  )}
+                  <span className="absolute bottom-1 right-1 w-2 h-2 rounded-full bg-emerald-400 border border-slate-900" />
                 </button>
 
                 {userMenuOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-52 bg-[#0f172a] border border-slate-700 rounded-lg shadow-xl p-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="absolute right-0 top-full mt-2 w-52 bg-[#0f172a] border border-slate-700/80 rounded-md shadow-xl p-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                     <div className="px-3 py-2 border-b border-slate-800 mb-1">
                       <div className="text-xs font-bold text-white truncate">{userProfile.name}</div>
                       <div className="text-[11px] text-slate-400 truncate">{userProfile.email}</div>
                     </div>
                     <button
                       onClick={() => handleNavClick('profile')}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-200 hover:text-white hover:bg-slate-800 rounded-md transition-colors text-left cursor-pointer"
+                      className="w-full flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-200 hover:text-white hover:bg-slate-800 rounded-sm transition-colors text-left cursor-pointer"
                     >
                       <IonIcon name="person-outline" size={15} className="text-blue-400" />
                       <span>User Profile</span>
                     </button>
                     <button
                       onClick={() => handleNavClick('favorites')}
-                      className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-slate-200 hover:text-white hover:bg-slate-800 rounded-md transition-colors text-left cursor-pointer"
+                      className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-slate-200 hover:text-white hover:bg-slate-800 rounded-sm transition-colors text-left cursor-pointer"
                     >
                       <div className="flex items-center gap-2">
                         <IonIcon name="heart-outline" size={15} className="text-red-400" />
                         <span>Saved Favorites</span>
                       </div>
-                      <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-800 text-slate-300">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-sm bg-slate-800 text-slate-300 font-bold">
                         {favorites.length}
                       </span>
                     </button>
                     <button
                       onClick={() => handleNavClick('compare')}
-                      className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-slate-200 hover:text-white hover:bg-slate-800 rounded-md transition-colors text-left cursor-pointer"
+                      className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-slate-200 hover:text-white hover:bg-slate-800 rounded-sm transition-colors text-left cursor-pointer"
                     >
                       <div className="flex items-center gap-2">
                         <IonIcon name="git-compare-outline" size={15} className="text-blue-400" />
                         <span>Compare Garage</span>
                       </div>
-                      <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-800 text-slate-300">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-sm bg-slate-800 text-slate-300 font-bold">
                         {compareList.length}
                       </span>
                     </button>
@@ -358,7 +358,7 @@ export const Navbar: React.FC = () => {
                         userLogout();
                         setUserMenuOpen(false);
                       }}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs font-semibold text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-md transition-colors text-left cursor-pointer"
+                      className="w-full flex items-center gap-2 px-3 py-2 text-xs font-semibold text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-sm transition-colors text-left cursor-pointer"
                     >
                       <IonIcon name="log-out-outline" size={15} />
                       <span>Sign Out</span>
@@ -369,17 +369,18 @@ export const Navbar: React.FC = () => {
             ) : (
               <button
                 onClick={() => setAuthModalOpen(true)}
-                className="px-3.5 py-1.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-md shadow-blue-600/20 cursor-pointer"
+                className="w-9 h-9 rounded-md flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer"
+                title="User Account / Sign In"
+                aria-label="User Account"
               >
-                <IonIcon name="log-in-outline" size={15} />
-                <span>Sign In</span>
+                <IonIcon name="person-outline" size={19} />
               </button>
             )}
 
             {/* Mobile Hamburger Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer ml-0.5"
+              className="lg:hidden w-9 h-9 rounded-md flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer ml-0.5"
               aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
             >
               <IonIcon name={mobileMenuOpen ? 'close-outline' : 'menu-outline'} size={22} />
@@ -395,7 +396,7 @@ export const Navbar: React.FC = () => {
               {/* Home */}
               <button
                 onClick={() => handleNavClick('home')}
-                className={`flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors text-left cursor-pointer ${
+                className={`flex items-center justify-between px-4 py-2.5 rounded-md text-sm font-semibold transition-colors text-left cursor-pointer ${
                   currentRoute === 'home' ? 'text-blue-400 bg-blue-500/15' : 'text-slate-200 hover:bg-slate-800/60'
                 }`}
               >
@@ -406,7 +407,7 @@ export const Navbar: React.FC = () => {
               <div>
                 <button
                   onClick={() => setMobileCarsOpen(!mobileCarsOpen)}
-                  className="w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-200 hover:bg-slate-800/60 transition-colors text-left cursor-pointer"
+                  className="w-full flex items-center justify-between px-4 py-2.5 rounded-md text-sm font-semibold text-slate-200 hover:bg-slate-800/60 transition-colors text-left cursor-pointer"
                 >
                   <span className={currentRoute === 'cars' ? 'text-blue-400' : ''}>Cars</span>
                   <IonIcon
@@ -416,12 +417,12 @@ export const Navbar: React.FC = () => {
                   />
                 </button>
                 {mobileCarsOpen && (
-                  <div className="pl-6 pr-2 py-1 space-y-1 bg-slate-900/60 rounded-xl my-1">
+                  <div className="pl-6 pr-2 py-1 space-y-1 bg-slate-900/60 rounded-md my-1">
                     {carOptions.map((opt) => (
                       <button
                         key={opt.label}
                         onClick={() => handleNavClick('cars', opt.category)}
-                        className="w-full flex items-center gap-2 py-2 px-3 text-xs font-medium text-slate-300 hover:text-white rounded-lg hover:bg-slate-800 text-left"
+                        className="w-full flex items-center gap-2 py-2 px-3 text-xs font-medium text-slate-300 hover:text-white rounded-sm hover:bg-slate-800 text-left"
                       >
                         <IonIcon name={opt.icon} size={14} className="text-blue-400" />
                         <span>{opt.label}</span>
@@ -435,7 +436,7 @@ export const Navbar: React.FC = () => {
               <div>
                 <button
                   onClick={() => setMobileBikesOpen(!mobileBikesOpen)}
-                  className="w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-200 hover:bg-slate-800/60 transition-colors text-left cursor-pointer"
+                  className="w-full flex items-center justify-between px-4 py-2.5 rounded-md text-sm font-semibold text-slate-200 hover:bg-slate-800/60 transition-colors text-left cursor-pointer"
                 >
                   <span className={currentRoute === 'motorcycles' ? 'text-blue-400' : ''}>Motorcycles</span>
                   <IonIcon
@@ -445,12 +446,12 @@ export const Navbar: React.FC = () => {
                   />
                 </button>
                 {mobileBikesOpen && (
-                  <div className="pl-6 pr-2 py-1 space-y-1 bg-slate-900/60 rounded-xl my-1">
+                  <div className="pl-6 pr-2 py-1 space-y-1 bg-slate-900/60 rounded-md my-1">
                     {bikeOptions.map((opt) => (
                       <button
                         key={opt.label}
                         onClick={() => handleNavClick('motorcycles', opt.category)}
-                        className="w-full flex items-center gap-2 py-2 px-3 text-xs font-medium text-slate-300 hover:text-white rounded-lg hover:bg-slate-800 text-left"
+                        className="w-full flex items-center gap-2 py-2 px-3 text-xs font-medium text-slate-300 hover:text-white rounded-sm hover:bg-slate-800 text-left"
                       >
                         <IonIcon name={opt.icon} size={14} className="text-blue-400" />
                         <span>{opt.label}</span>
@@ -460,7 +461,7 @@ export const Navbar: React.FC = () => {
                 )}
               </div>
 
-              {/* Brands, Compare, About, Contact, Admin */}
+              {/* Brands, Compare, About, Contact */}
               {navLinks.slice(1).map((link) => {
                 const isActive = currentRoute === link.route;
 
@@ -468,7 +469,7 @@ export const Navbar: React.FC = () => {
                   <button
                     key={link.route}
                     onClick={() => handleNavClick(link.route)}
-                    className={`flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors text-left cursor-pointer ${
+                    className={`flex items-center justify-between px-4 py-2.5 rounded-md text-sm font-semibold transition-colors text-left cursor-pointer ${
                       isActive
                         ? 'text-blue-400 bg-blue-500/15'
                         : 'text-slate-200 hover:bg-slate-800/60'
@@ -476,7 +477,7 @@ export const Navbar: React.FC = () => {
                   >
                     <span>{link.label}</span>
                     {link.route === 'compare' && compareList.length > 0 && (
-                      <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-blue-600 text-white">
+                      <span className="px-2 py-0.5 text-xs font-semibold rounded-sm bg-blue-600 text-white">
                         {compareList.length}
                       </span>
                     )}

@@ -77,7 +77,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
+          const hasMotorcycles = parsed.some((v: any) => v.type === 'motorcycle');
+          if (hasMotorcycles) {
+            return parsed;
+          }
+          // Merge missing motorcycles from default VEHICLES_DATA
+          const motorcycles = VEHICLES_DATA.filter((v) => v.type === 'motorcycle');
+          const merged = [...parsed, ...motorcycles];
+          try {
+            localStorage.setItem('autovista_vehicles_v1', JSON.stringify(merged));
+          } catch {
+            // ignore
+          }
+          return merged;
         }
       }
     } catch {

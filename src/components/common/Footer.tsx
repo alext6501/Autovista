@@ -30,11 +30,11 @@ export const Footer: React.FC = () => {
             <div className="flex items-center gap-2.5">
               <img
                 src="/logo.jpg"
-                alt="VeyroMotors Emblem"
-                className="w-8 h-8 object-contain rounded-md"
+                alt="VEYRO Logo"
+                className="w-8 h-8 object-contain rounded-md border border-slate-800"
               />
-              <span className="text-xl font-bold tracking-tight text-white font-display">
-                Veyro<span className="text-blue-500">Motors</span>
+              <span className="text-xl font-black tracking-wider text-white font-display">
+                VEYRO<span className="text-blue-500 font-semibold text-xs tracking-widest ml-1 uppercase">Motors</span>
               </span>
             </div>
             

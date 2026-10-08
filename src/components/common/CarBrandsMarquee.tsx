@@ -37,22 +37,25 @@ export const CarBrandsMarquee: React.FC = () => {
       <div className="absolute top-10 bottom-0 left-0 w-12 sm:w-24 md:w-32 bg-gradient-to-r from-[#05080f] to-transparent z-10 pointer-events-none" />
       <div className="absolute top-10 bottom-0 right-0 w-12 sm:w-24 md:w-32 bg-gradient-to-l from-[#05080f] to-transparent z-10 pointer-events-none" />
 
-      {/* Flowing Marquee Track - Strictly Car Brand / Company Logos Only, Reduced Border Radius */}
-      <div className="flex w-max animate-marquee gap-2.5 sm:gap-3.5 md:gap-4 py-1">
+      {/* Flowing Marquee Track - Strictly Car Brand Logos Without Container Boxes */}
+      <div className="flex w-max animate-marquee gap-6 sm:gap-8 md:gap-12 py-1.5 items-center">
         {marqueeItems.map((brand, idx) => (
           <button
             key={`${brand.id}-${idx}`}
             onClick={() => navigateTo('brands', null, brand.name)}
             title={brand.name}
-            className="flex items-center justify-center w-13 h-13 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-md bg-slate-900/90 hover:bg-slate-800/90 border border-slate-800 hover:border-blue-500/60 transition-all shrink-0 cursor-pointer shadow-sm group p-2 text-slate-300 hover:text-white"
+            className="flex items-center gap-2.5 shrink-0 cursor-pointer group text-slate-400 hover:text-white transition-all px-2 py-1"
             aria-label={`${brand.name} logo`}
           >
-            <div className="w-full h-full rounded-sm overflow-hidden flex items-center justify-center bg-slate-950/70 p-1.5 border border-slate-800/60">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center">
               <BrandLogo
                 brandName={brand.name}
-                className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 text-slate-200 group-hover:text-blue-400"
+                className="w-full h-full object-contain filter grayscale opacity-65 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 text-slate-300 group-hover:text-white"
               />
             </div>
+            <span className="text-xs font-semibold tracking-wider text-slate-400 group-hover:text-white transition-colors whitespace-nowrap uppercase font-mono">
+              {brand.name}
+            </span>
           </button>
         ))}
       </div>

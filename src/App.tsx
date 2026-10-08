@@ -24,9 +24,9 @@ const AppContent: React.FC = () => {
       case 'home':
         return <HomePage />;
       case 'cars':
-        return <BrowsePage initialType="car" />;
+        return <BrowsePage key="cars" initialType="car" />;
       case 'motorcycles':
-        return <BrowsePage initialType="motorcycle" />;
+        return <BrowsePage key="motorcycles" initialType="motorcycle" />;
       case 'car-details':
       case 'motorcycle-details':
         return <VehicleDetailPage />;

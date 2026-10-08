@@ -114,10 +114,10 @@ export const BrandsPage: React.FC = () => {
                 className="p-5 rounded-md bg-[#0f172a] border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
               >
                 <div>
-                  <div className="w-14 h-14 rounded-md overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center p-2.5 mb-4 text-slate-300 group-hover:text-blue-400 transition-colors">
+                  <div className="w-12 h-12 flex items-center justify-center mb-4 text-slate-300 group-hover:text-blue-400 transition-colors">
                     <BrandLogo
                       brandName={brand.name}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                      className="w-full h-full object-contain filter grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all"
                     />
                   </div>
                   <h3 className="text-base font-bold text-white tracking-tight">
@@ -183,10 +183,10 @@ export const BrandsPage: React.FC = () => {
                 className="p-5 rounded-md bg-[#0f172a] border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
               >
                 <div>
-                  <div className="w-14 h-14 rounded-md overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center p-2.5 mb-4 text-slate-300 group-hover:text-blue-400 transition-colors">
+                  <div className="w-12 h-12 flex items-center justify-center mb-4 text-slate-300 group-hover:text-blue-400 transition-colors">
                     <BrandLogo
                       brandName={brand.name}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                      className="w-full h-full object-contain filter grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all"
                     />
                   </div>
                   <h3 className="text-base font-bold text-white tracking-tight">
