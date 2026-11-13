@@ -26,6 +26,9 @@ export interface Vehicle {
   description: string;
   isFeatured?: boolean;
   featuredOrder?: number;
+  isLatest?: boolean;
+  isCustom?: boolean;
+  addedAt?: string;
 }
 
 export interface Brand {
@@ -46,6 +49,7 @@ export interface AutomotiveUpdate {
   summary: string;
   content: string[];
   relatedVehicleId?: string;
+  isCustom?: boolean;
 }
 
 export type PageRoute =
@@ -56,4 +60,5 @@ export type PageRoute =
   | 'about'
   | 'updates'
   | 'profile'
-  | 'car-details';
+  | 'car-details'
+  | 'admin';

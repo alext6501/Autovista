@@ -16,18 +16,28 @@ export const BrowsePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedFuel, setSelectedFuel] = useState<string>('All');
   const [selectedTransmission, setSelectedTransmission] = useState<string>('All');
+  const [onlyLatest, setOnlyLatest] = useState<boolean>(false);
   const [maxPrice, setMaxPrice] = useState<number>(400000);
-  const [sortBy, setSortBy] = useState<string>('featured');
+  const [sortBy, setSortBy] = useState<string>('latest');
 
   const categories = ['All', 'Sedan', 'SUV', 'Coupe', 'Supercar', 'Hatchback'];
   const fuelTypes = ['All', 'Gasoline', 'Diesel', 'Hybrid', 'Electric'];
   const transmissions = ['All', 'Automatic', 'Manual'];
+
+  const uniqueBrands = useMemo(() => {
+    const names = new Set(POPULAR_BRANDS.map((b) => b.name));
+    vehicles.forEach((v) => names.add(v.brand));
+    return Array.from(names);
+  }, [vehicles]);
 
   const filteredCars = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
 
     const list = vehicles.filter((car) => {
       if (selectedBrand && car.brand.toLowerCase() !== selectedBrand.toLowerCase()) {
+        return false;
+      }
+      if (onlyLatest && !car.isLatest) {
         return false;
       }
       if (selectedCategory !== 'All' && car.category !== selectedCategory) {
@@ -61,14 +71,23 @@ export const BrowsePage: React.FC = () => {
         return [...list].sort((a, b) => b.price - a.price);
       case 'hp-desc':
         return [...list].sort((a, b) => b.horsepower - a.horsepower);
-      default:
+      case 'featured':
         return [...list].sort(
           (a, b) => (a.featuredOrder ?? 99) - (b.featuredOrder ?? 99)
         );
+      default:
+        // Latest posted cars appear first, followed by featured/catalog order
+        return [...list].sort((a, b) => {
+          const timeA = a.addedAt ? new Date(a.addedAt).getTime() : 0;
+          const timeB = b.addedAt ? new Date(b.addedAt).getTime() : 0;
+          if (timeA !== timeB) return timeB - timeA;
+          return (a.featuredOrder ?? 99) - (b.featuredOrder ?? 99);
+        });
     }
   }, [
     vehicles,
     selectedBrand,
+    onlyLatest,
     selectedCategory,
     selectedFuel,
     selectedTransmission,
@@ -79,6 +98,7 @@ export const BrowsePage: React.FC = () => {
 
   const hasActiveFilters =
     Boolean(selectedBrand) ||
+    onlyLatest ||
     selectedCategory !== 'All' ||
     selectedFuel !== 'All' ||
     selectedTransmission !== 'All' ||
@@ -87,12 +107,13 @@ export const BrowsePage: React.FC = () => {
 
   const resetAllFilters = () => {
     setSelectedBrand(null);
+    setOnlyLatest(false);
     setSelectedCategory('All');
     setSelectedFuel('All');
     setSelectedTransmission('All');
     setMaxPrice(400000);
     setSearchQuery('');
-    setSortBy('featured');
+    setSortBy('latest');
   };
 
   return (
@@ -156,9 +177,9 @@ export const BrowsePage: React.FC = () => {
               className="w-full h-10 px-3 text-sm border border-neutral-300 bg-white text-black focus:outline-none focus:border-black cursor-pointer"
             >
               <option value="All">All Brands</option>
-              {POPULAR_BRANDS.map((b) => (
-                <option key={b.id} value={b.name}>
-                  {b.name}
+              {uniqueBrands.map((b) => (
+                <option key={b} value={b}>
+                  {b}
                 </option>
               ))}
             </select>
@@ -210,6 +231,7 @@ export const BrowsePage: React.FC = () => {
               onChange={(e) => setSortBy(e.target.value)}
               className="w-full h-10 px-3 text-sm border border-neutral-300 bg-white text-black focus:outline-none focus:border-black cursor-pointer"
             >
+              <option value="latest">Latest Cars First</option>
               <option value="featured">Featured</option>
               <option value="price-asc">Price: Low to High</option>
               <option value="price-desc">Price: High to Low</option>
@@ -218,7 +240,7 @@ export const BrowsePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Secondary Filter Strip: Transmission, Max Price, Reset */}
+        {/* Secondary Filter Strip: Transmission, Latest Filter, Max Price, Reset */}
         <div className="py-3.5 border-b border-neutral-200 flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2 text-xs text-neutral-700">
@@ -241,6 +263,18 @@ export const BrowsePage: React.FC = () => {
                 ))}
               </div>
             </div>
+
+            <button
+              type="button"
+              onClick={() => setOnlyLatest(!onlyLatest)}
+              className={`px-3 py-1 text-xs font-medium border transition-colors cursor-pointer ${
+                onlyLatest
+                  ? 'bg-black text-white border-black'
+                  : 'bg-white text-black border-neutral-300 hover:border-black'
+              }`}
+            >
+              Latest Added Only
+            </button>
 
             <div className="flex items-center gap-3 text-xs text-neutral-700">
               <span className="font-semibold">Max Indicative Price:</span>

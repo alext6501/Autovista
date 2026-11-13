@@ -39,7 +39,33 @@
   }
 }
 
-/* Enforce zero shadows and zero border radius across ShiftRoute */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
+}
+
+/* Continuous seamless horizontal scroll for Popular Brands */
+@keyframes brandsMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-brands-marquee {
+  display: flex;
+  width: max-content;
+  animation: brandsMarquee 26s linear infinite;
+  will-change: transform;
+}
+
+.animate-brands-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-brands-marquee {
+    animation: none;
+  }
 }

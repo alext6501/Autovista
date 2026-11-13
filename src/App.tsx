@@ -11,6 +11,7 @@ import { AboutPage } from './pages/AboutPage';
 import { UpdatesPage } from './pages/UpdatesPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { VehicleDetailPage } from './pages/VehicleDetailPage';
+import { AdminPage } from './pages/AdminPage';
 
 const AppContent: React.FC = () => {
   const { currentRoute } = useApp();
@@ -33,6 +34,8 @@ const AppContent: React.FC = () => {
         return <ProfilePage />;
       case 'car-details':
         return <VehicleDetailPage />;
+      case 'admin':
+        return <AdminPage />;
       default:
         return <HomePage />;
     }

@@ -2,25 +2,24 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Search, ArrowRight, Car, BarChart2, ShieldCheck } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { POPULAR_BRANDS } from '../data/brands';
-import { AUTOMOTIVE_UPDATES } from '../data/updates';
 import { CAR_IMAGES } from '../data/carImages';
 import { BrandLogo } from '../components/common/BrandLogo';
 import { VehicleCard } from '../components/common/VehicleCard';
 
 export const HomePage: React.FC = () => {
-  const { vehicles, navigateTo } = useApp();
+  const { vehicles, updates, navigateTo } = useApp();
   const [heroQuery, setHeroQuery] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchBoxRef = useRef<HTMLDivElement | null>(null);
 
-  // Featured 5 cars in exact reference order
+  // Featured 5 cars in exact reference order (with optional pinned custom featured cars)
   const featuredCars = vehicles
     .filter((v) => v.isFeatured)
     .sort((a, b) => (a.featuredOrder ?? 99) - (b.featuredOrder ?? 99))
     .slice(0, 5);
 
-  // Latest 3 updates in exact reference order
-  const latestUpdates = AUTOMOTIVE_UPDATES.slice(0, 3);
+  // Latest 3 updates (includes newly posted admin cars automatically)
+  const latestUpdates = updates.slice(0, 3);
 
   const matchingSuggestions = heroQuery.trim()
     ? vehicles
@@ -156,7 +155,7 @@ export const HomePage: React.FC = () => {
           </div>
         </section>
 
-        {/* ================= 2. POPULAR BRANDS ================= */}
+        {/* ================= 2. POPULAR BRANDS (CONTINUOUS SCROLLING MARQUEE) ================= */}
         <section className="mt-2">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-[19px] sm:text-[21px] font-bold tracking-tight text-black">
@@ -172,22 +171,24 @@ export const HomePage: React.FC = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 border-t border-l border-neutral-200">
-            {POPULAR_BRANDS.map((brand) => (
-              <button
-                key={brand.id}
-                type="button"
-                onClick={() => navigateTo('all-cars', { brand: brand.name, search: '' })}
-                className="border-r border-b border-neutral-200 bg-white hover:bg-neutral-50 transition-colors py-3.5 px-2 flex flex-col items-center justify-center gap-1.5 cursor-pointer group"
-              >
-                <div className="h-8 flex items-center justify-center text-black group-hover:scale-105 transition-transform">
-                  <BrandLogo brandName={brand.name} className="w-11 h-7" />
-                </div>
-                <span className="text-xs font-medium text-black whitespace-nowrap">
-                  {brand.name}
-                </span>
-              </button>
-            ))}
+          <div className="overflow-hidden border border-neutral-200 bg-white">
+            <div className="animate-brands-marquee">
+              {[...POPULAR_BRANDS, ...POPULAR_BRANDS].map((brand, idx) => (
+                <button
+                  key={`${brand.id}-${idx}`}
+                  type="button"
+                  onClick={() => navigateTo('all-cars', { brand: brand.name, search: '' })}
+                  className="w-[126px] sm:w-[130px] shrink-0 border-r border-neutral-200 bg-white hover:bg-neutral-50 transition-colors py-3.5 px-2 flex flex-col items-center justify-center gap-1.5 cursor-pointer group"
+                >
+                  <div className="h-8 flex items-center justify-center text-black group-hover:scale-105 transition-transform">
+                    <BrandLogo brandName={brand.name} className="w-11 h-7" />
+                  </div>
+                  <span className="text-xs font-medium text-black whitespace-nowrap">
+                    {brand.name}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -287,7 +288,7 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
 
-          {/* Right: Latest Updates */}
+          {/* Right: Latest Updates (Dynamically reflects newly added admin cars) */}
           <div className="lg:col-span-3 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-[19px] sm:text-[21px] font-bold tracking-tight text-black">

@@ -1,13 +1,12 @@
 import React from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { AUTOMOTIVE_UPDATES } from '../data/updates';
 
 export const UpdatesPage: React.FC = () => {
-  const { selectedUpdateId, navigateTo, getVehicleById } = useApp();
+  const { updates, selectedUpdateId, navigateTo, getVehicleById } = useApp();
 
   const activeUpdate = selectedUpdateId
-    ? AUTOMOTIVE_UPDATES.find((u) => u.id === selectedUpdateId) ?? null
+    ? updates.find((u) => u.id === selectedUpdateId) ?? null
     : null;
 
   if (activeUpdate) {
@@ -91,15 +90,15 @@ export const UpdatesPage: React.FC = () => {
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="pb-6 border-b border-neutral-200">
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-black">
-            Latest Automotive Updates
+            Latest Updates & Newly Added Cars
           </h1>
           <p className="mt-1.5 text-sm text-neutral-600">
-            Model launches, technical updates, and engineering highlights curated by ShiftRoute.
+            Model launches, newly added cars, and engineering highlights curated by ShiftRoute.
           </p>
         </div>
 
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {AUTOMOTIVE_UPDATES.map((item) => (
+          {updates.map((item) => (
             <article
               key={item.id}
               onClick={() => navigateTo('updates', { updateId: item.id })}

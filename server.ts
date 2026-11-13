@@ -16,7 +16,7 @@ app.use(express.json());
 app.get('/api/health', (_req: Request, res: Response) => {
   res.json({
     status: 'ok',
-    app: 'AutoVista',
+    app: 'ShiftRoute',
     uptime: process.uptime(),
     timestamp: new Date().toISOString(),
   });
@@ -53,11 +53,11 @@ async function startServer() {
   }
 
   app.listen(Number(PORT), '0.0.0.0', () => {
-    console.log(`[AutoVista] Server running on http://0.0.0.0:${PORT} (Mode: ${isProduction ? 'Production' : 'Development'})`);
+    console.log(`[ShiftRoute] Server running on http://0.0.0.0:${PORT} (Mode: ${isProduction ? 'Production' : 'Development'})`);
   });
 }
 
 startServer().catch((err) => {
-  console.error('[AutoVista] Failed to start server:', err);
+  console.error('[ShiftRoute] Failed to start server:', err);
   process.exit(1);
 });
