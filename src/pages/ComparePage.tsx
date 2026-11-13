@@ -1,310 +1,207 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { X, ArrowRight } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { VEHICLES_DATA } from '../data/vehicles';
-import { IonIcon } from '../components/common/IonIcon';
 import { Vehicle } from '../types/vehicle';
 
 export const ComparePage: React.FC = () => {
-  const { compareList, removeFromCompare, addToCompare, clearCompare, navigateTo } = useApp();
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [highlightDifferences, setHighlightDifferences] = useState(false);
+  const {
+    vehicles,
+    compareList,
+    setCompareSlot,
+    removeFromCompare,
+    clearCompare,
+    navigateTo
+  } = useApp();
 
-  // Selected vehicles for comparison
-  const vehiclesToCompare: Vehicle[] = compareList
-    .map((id) => VEHICLES_DATA.find((v) => v.id === id))
-    .filter((v): v is Vehicle => v !== undefined);
+  const slots = [0, 1, 2];
+  const selectedCars: (Vehicle | null)[] = slots.map((idx) => {
+    const id = compareList[idx];
+    return id ? vehicles.find((v) => v.id === id) ?? null : null;
+  });
 
-  // Available vehicles to add (not yet in compare list)
-  const availableToAdd = VEHICLES_DATA.filter(
-    (v) => !compareList.includes(v.id)
-  );
+  const activeCars = selectedCars.filter((c): c is Vehicle => c !== null);
 
-  const formatCurrency = (amount: number) =>
-    new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0,
-    }).format(amount);
-
-  const specsList = [
-    { label: 'Reference Price', getValue: (v: Vehicle): string => formatCurrency(v.cost), isPrimary: true },
-    { label: 'Model Year', getValue: (v: Vehicle): string => String(v.year) },
-    { label: 'Category', getValue: (v: Vehicle): string => v.category },
-    { label: 'Engine Type', getValue: (v: Vehicle): string => v.engine },
-    { label: 'Horsepower', getValue: (v: Vehicle): string => `${v.horsepower} HP`, isPrimary: true },
-    { label: 'Torque', getValue: (v: Vehicle): string => v.torque },
-    { label: 'Fuel Type', getValue: (v: Vehicle): string => v.fuelType },
-    { label: 'Transmission', getValue: (v: Vehicle): string => v.transmission },
-    { label: 'Fuel Economy', getValue: (v: Vehicle): string => v.fuelEconomy },
-    { label: 'Curb / Wet Weight', getValue: (v: Vehicle): string => v.weight },
-    { label: 'Seating Capacity', getValue: (v: Vehicle): string => `${v.seatingCapacity} ${v.seatingCapacity === 1 ? 'Person' : 'People'}` },
-    { label: 'Top Speed', getValue: (v: Vehicle): string => v.topSpeed },
-    { label: '0-60 Acceleration', getValue: (v: Vehicle): string => v.acceleration || 'N/A' },
+  const comparisonRows: { label: string; getValue: (car: Vehicle) => string }[] = [
+    { label: 'Brand', getValue: (c) => c.brand },
+    { label: 'Model Year', getValue: (c) => String(c.year) },
+    { label: 'Body Category', getValue: (c) => c.category },
+    { label: 'Indicative Price', getValue: (c) => `$${c.price.toLocaleString()}` },
+    { label: 'Engine', getValue: (c) => c.engine },
+    { label: 'Displacement / Battery', getValue: (c) => c.displacement },
+    { label: 'Horsepower', getValue: (c) => `${c.horsepower} hp` },
+    { label: 'Torque', getValue: (c) => c.torque },
+    { label: 'Fuel Type', getValue: (c) => c.fuelType },
+    { label: 'Transmission', getValue: (c) => c.transmission },
+    { label: 'Drivetrain', getValue: (c) => c.drivetrain },
+    { label: 'Maximum Speed', getValue: (c) => c.topSpeed },
+    { label: '0–60 mph', getValue: (c) => c.acceleration },
+    { label: 'Efficiency / Range', getValue: (c) => c.fuelEconomy },
+    { label: 'Curb Weight', getValue: (c) => c.weight },
+    { label: 'Seating Capacity', getValue: (c) => `${c.seatingCapacity} Passengers` }
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full flex flex-col gap-8">
-      
-      {/* Page Title & Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-slate-800">
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-display">
-            Compare Vehicles
-          </h1>
-          <p className="mt-1 text-sm sm:text-base text-slate-400">
-            Side by side comparison of your favorite models.
-          </p>
-        </div>
+    <div className="bg-white text-black py-8">
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="pb-6 border-b border-neutral-200 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-black">
+              Compare Cars
+            </h1>
+            <p className="mt-1.5 text-sm text-neutral-600">
+              Select up to three models to compare engines, drivetrains, performance, and indicative prices side by side.
+            </p>
+          </div>
 
-        <div className="flex items-center gap-3">
-          {vehiclesToCompare.length > 1 && (
+          {activeCars.length > 0 && (
             <button
-              onClick={() => setHighlightDifferences(!highlightDifferences)}
-              className={`px-3 py-2 rounded-lg text-xs font-semibold border transition-colors cursor-pointer flex items-center gap-1.5 ${
-                highlightDifferences
-                  ? 'bg-blue-600/20 border-blue-500 text-blue-400'
-                  : 'bg-slate-900 border-slate-700 text-slate-400 hover:text-white'
-              }`}
-            >
-              <IonIcon name="swap-horizontal" size={14} />
-              <span>{highlightDifferences ? 'Differences Highlighted' : 'Highlight Differences'}</span>
-            </button>
-          )}
-
-          {vehiclesToCompare.length < 3 && (
-            <button
-              onClick={() => setShowAddModal(true)}
-              className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition-colors flex items-center gap-1.5 cursor-pointer shadow-md shadow-blue-600/20"
-            >
-              <IonIcon name="add-outline" size={16} />
-              <span>Add Vehicle ({vehiclesToCompare.length}/3)</span>
-            </button>
-          )}
-
-          {vehiclesToCompare.length > 0 && (
-            <button
+              type="button"
               onClick={clearCompare}
-              className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-red-400 hover:border-red-500/40 transition-colors"
-              title="Clear all"
+              className="text-xs font-semibold border border-black px-3.5 py-2 hover:bg-black hover:text-white transition-colors cursor-pointer self-start sm:self-auto"
             >
-              <IonIcon name="trash-outline" size={16} />
+              Clear Comparison
             </button>
           )}
         </div>
-      </div>
 
-      {/* Comparison Container */}
-      {vehiclesToCompare.length === 0 ? (
-        <div className="w-full py-16 px-4 text-center rounded-md bg-[#0f172a] border border-slate-800 flex flex-col items-center justify-center">
-          <div className="w-16 h-16 rounded-full bg-slate-800/80 flex items-center justify-center text-blue-400 mb-4">
-            <IonIcon name="git-compare-outline" size={32} />
-          </div>
-          <h3 className="text-xl font-bold text-white">No vehicles selected for comparison</h3>
-          <p className="mt-2 text-sm text-slate-400 max-w-md">
-            Browse our cars and motorcycles and click the compare icon on any model to evaluate specifications side-by-side.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <button
-              onClick={() => navigateTo('cars')}
-              className="px-5 py-2.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition-colors"
-            >
-              Browse Cars
-            </button>
-            <button
-              onClick={() => navigateTo('motorcycles')}
-              className="px-5 py-2.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold transition-colors"
-            >
-              Browse Motorcycles
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className="w-full overflow-x-auto pb-4">
-          <div className="min-w-[640px] lg:min-w-full bg-[#0f172a] border border-slate-800 rounded-md overflow-hidden shadow-2xl">
-            
-            {/* Vehicle Cards Header Row */}
-            <div className={`grid grid-cols-${vehiclesToCompare.length + 1} border-b border-slate-800 bg-slate-900/60 p-4 sm:p-6 gap-4`}
-              style={{
-                gridTemplateColumns: `220px repeat(${vehiclesToCompare.length}, minmax(240px, 1fr))`
-              }}
-            >
-              {/* First Column Header */}
-              <div className="flex flex-col justify-end pb-2">
-                <span className="text-xs uppercase tracking-wider text-slate-400 font-bold">
-                  Vehicle Models
-                </span>
-                <span className="text-xs text-slate-400 mt-1">
-                  Comparing {vehiclesToCompare.length} models
-                </span>
-              </div>
+        {/* Slot Selectors */}
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {slots.map((slotIndex) => {
+            const car = selectedCars[slotIndex];
+            return (
+              <div key={slotIndex} className="border border-neutral-200 bg-white p-4">
+                <div className="flex items-center justify-between mb-2.5">
+                  <span className="text-[11px] font-bold text-neutral-500">
+                    Vehicle {slotIndex + 1}
+                  </span>
+                  {car && (
+                    <button
+                      type="button"
+                      onClick={() => removeFromCompare(car.id)}
+                      aria-label={`Remove ${car.model}`}
+                      className="text-neutral-500 hover:text-black cursor-pointer"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
 
-              {/* Vehicle Columns */}
-              {vehiclesToCompare.map((v) => (
-                <div key={v.id} className="relative bg-slate-900 border border-slate-800 rounded-md p-4 flex flex-col justify-between">
-                  <button
-                    onClick={() => removeFromCompare(v.id)}
-                    className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-slate-800/80 hover:bg-red-500/20 text-slate-400 hover:text-red-400 flex items-center justify-center transition-colors cursor-pointer"
-                    title="Remove"
-                  >
-                    <IonIcon name="close-outline" size={16} />
-                  </button>
+                <select
+                  value={car?.id ?? ''}
+                  onChange={(e) => setCompareSlot(slotIndex, e.target.value || null)}
+                  className="w-full h-10 px-3 text-sm border border-neutral-300 bg-white text-black focus:outline-none focus:border-black cursor-pointer"
+                >
+                  <option value="">Select a car...</option>
+                  {vehicles.map((v) => (
+                    <option key={v.id} value={v.id}>
+                      {v.model} (${v.price.toLocaleString()})
+                    </option>
+                  ))}
+                </select>
 
-                  <div>
-                    <div className="aspect-[16/10] w-full rounded-lg overflow-hidden bg-slate-950 mb-3">
+                {car ? (
+                  <div className="mt-4">
+                    <div
+                      onClick={() => navigateTo('car-details', { vehicleId: car.id })}
+                      className="aspect-[16/10] w-full bg-neutral-100 border border-neutral-200 overflow-hidden cursor-pointer"
+                    >
                       <img
-                        src={v.image}
-                        alt={`${v.brand} ${v.model}`}
+                        src={car.image}
+                        alt={car.model}
                         referrerPolicy="no-referrer"
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <span className="text-xs text-blue-400 font-semibold uppercase tracking-wider">
-                      {v.brand}
-                    </span>
-                    <h3 className="text-base font-bold text-white tracking-tight line-clamp-1">
-                      {v.model} ({v.year})
-                    </h3>
-                  </div>
-
-                  <div className="mt-3 pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
-                    <button
-                      onClick={() => setShowAddModal(true)}
-                      className="px-2.5 py-1 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors"
-                    >
-                      Change
-                    </button>
-                    <button
-                      onClick={() => navigateTo(v.type === 'car' ? 'car-details' : 'motorcycle-details', v.id)}
-                      className="px-2.5 py-1 text-xs font-semibold rounded bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white transition-colors"
-                    >
-                      View Details
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Specifications Comparison Rows */}
-            <div className="divide-y divide-slate-800/80 text-sm">
-              {specsList.map((spec, sIdx) => {
-                const values = vehiclesToCompare.map(spec.getValue);
-                const isDifferent = new Set(values).size > 1;
-
-                return (
-                  <div
-                    key={spec.label}
-                    className={`grid items-center p-3.5 sm:px-6 transition-colors ${
-                      sIdx % 2 === 0 ? 'bg-slate-900/30' : 'bg-[#0f172a]'
-                    } ${highlightDifferences && isDifferent ? 'bg-blue-950/20' : ''}`}
-                    style={{
-                      gridTemplateColumns: `220px repeat(${vehiclesToCompare.length}, minmax(240px, 1fr))`
-                    }}
-                  >
-                    <div className="font-medium text-slate-400 text-xs sm:text-sm">
-                      {spec.label}
-                    </div>
-
-                    {vehiclesToCompare.map((v) => (
-                      <div
-                        key={v.id}
-                        className={`text-slate-200 text-xs sm:text-sm font-semibold truncate ${
-                          spec.isPrimary ? 'text-blue-400 font-bold' : ''
-                        }`}
+                    <div className="mt-3 flex items-center justify-between gap-2">
+                      <button
+                        type="button"
+                        onClick={() => navigateTo('car-details', { vehicleId: car.id })}
+                        className="text-sm font-bold text-black hover:underline text-left cursor-pointer"
                       >
-                        {spec.getValue(v)}
-                      </div>
-                    ))}
+                        {car.model}
+                      </button>
+                      <span className="text-sm font-bold text-black tabular-nums">
+                        ${car.price.toLocaleString()}
+                      </span>
+                    </div>
                   </div>
-                );
-              })}
-
-              {/* Key Features Row */}
-              <div
-                className="grid p-4 sm:p-6 bg-slate-900/50"
-                style={{
-                  gridTemplateColumns: `220px repeat(${vehiclesToCompare.length}, minmax(240px, 1fr))`
-                }}
-              >
-                <div className="font-bold text-white text-xs sm:text-sm">
-                  Key Features
-                </div>
-
-                {vehiclesToCompare.map((v) => (
-                  <div key={v.id} className="pr-4">
-                    <ul className="space-y-2">
-                      {v.features.slice(0, 5).map((f, fIdx) => (
-                        <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-300">
-                          <IonIcon
-                            name="checkmark-circle-outline"
-                            size={14}
-                            className="text-blue-400 shrink-0 mt-0.5"
-                          />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
+                ) : (
+                  <div className="mt-4 aspect-[16/10] w-full border border-dashed border-neutral-300 bg-neutral-50 flex items-center justify-center text-xs text-neutral-500">
+                    Choose a model above
                   </div>
-                ))}
+                )}
               </div>
-            </div>
-
-          </div>
+            );
+          })}
         </div>
-      )}
 
-      {/* Add / Change Vehicle Modal */}
-      {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="w-full max-w-2xl bg-[#0f172a] border border-slate-700 rounded-md shadow-2xl p-6 max-h-[85vh] flex flex-col">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-              <h3 className="text-lg font-bold text-white">Select Vehicle to Compare</h3>
+        {/* Comparison Specifications Table */}
+        {activeCars.length > 0 ? (
+          <div className="mt-8 overflow-x-auto border border-neutral-200">
+            <table className="w-full border-collapse text-left min-w-[640px]">
+              <thead>
+                <tr className="border-b border-neutral-200 bg-neutral-50">
+                  <th className="p-3.5 text-xs font-bold text-black w-48 border-r border-neutral-200">
+                    Specification
+                  </th>
+                  {activeCars.map((car) => (
+                    <th
+                      key={car.id}
+                      className="p-3.5 text-xs sm:text-sm font-bold text-black border-r last:border-r-0 border-neutral-200"
+                    >
+                      {car.model}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-neutral-200">
+                {comparisonRows.map((row) => (
+                  <tr key={row.label} className="hover:bg-neutral-50">
+                    <td className="p-3.5 text-xs font-semibold text-neutral-600 border-r border-neutral-200">
+                      {row.label}
+                    </td>
+                    {activeCars.map((car) => (
+                      <td
+                        key={`${car.id}-${row.label}`}
+                        className="p-3.5 text-xs sm:text-sm text-black font-medium tabular-nums border-r last:border-r-0 border-neutral-200"
+                      >
+                        {row.getValue(car)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="mt-8 p-10 border border-neutral-200 text-center">
+            <h2 className="text-base font-bold text-black">Start a Side-by-Side Comparison</h2>
+            <p className="mt-1.5 text-xs sm:text-sm text-neutral-600">
+              Pick two or three cars from the dropdown selectors above or browse the catalog first.
+            </p>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
               <button
-                onClick={() => setShowAddModal(false)}
-                className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-slate-800"
+                type="button"
+                onClick={() => {
+                  setCompareSlot(0, 'toyota-land-cruiser-300');
+                  setCompareSlot(1, 'bmw-7-series');
+                }}
+                className="bg-black text-white px-4 py-2.5 text-xs font-semibold hover:bg-neutral-800 transition-colors cursor-pointer"
               >
-                <IonIcon name="close-outline" size={20} />
+                Compare Land Cruiser 300 vs BMW 7 Series
+              </button>
+              <button
+                type="button"
+                onClick={() => navigateTo('all-cars')}
+                className="border border-black text-black px-4 py-2.5 text-xs font-semibold hover:bg-neutral-100 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+              >
+                <span>Browse All Cars</span>
+                <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
               </button>
             </div>
-
-            <div className="mt-4 flex-1 overflow-y-auto space-y-2 pr-1">
-              {availableToAdd.map((v) => (
-                <div
-                  key={v.id}
-                  onClick={() => {
-                    addToCompare(v.id);
-                    setShowAddModal(false);
-                  }}
-                  className="flex items-center justify-between p-3 rounded-md bg-slate-900/80 hover:bg-slate-800 border border-slate-800 cursor-pointer transition-colors"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-16 h-11 rounded-lg overflow-hidden bg-slate-950 shrink-0">
-                      <img
-                        src={v.image}
-                        alt={`${v.brand} ${v.model}`}
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <span className="text-xs text-blue-400 font-semibold block">{v.brand}</span>
-                      <span className="text-sm font-bold text-white block">{v.model} ({v.year})</span>
-                      <span className="text-xs text-slate-400">{v.category} · {v.engine.split(' ')[0]}</span>
-                    </div>
-                  </div>
-
-                  <div className="text-right">
-                    <span className="text-sm font-bold text-white block">
-                      {formatCurrency(v.cost)}
-                    </span>
-                    <span className="text-xs text-blue-400 font-medium">+ Add</span>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
-        </div>
-      )}
-
+        )}
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 {
-  "name": "AutoVista - Vehicle Catalog & Showcase",
-  "description": "Discover cars and motorcycles, compare technical specifications, and explore vehicle costs in a modern catalog.",
+  "name": "ShiftRoute - Automotive Catalog & Vehicle Specifications",
+  "description": "Discover premium cars, explore detailed technical specifications, compare models, and view indicative pricing with ShiftRoute.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

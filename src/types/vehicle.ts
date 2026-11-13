@@ -1,58 +1,59 @@
-export type VehicleType = 'car' | 'motorcycle';
-
 export interface Vehicle {
   id: string;
-  type: VehicleType;
   brand: string;
   model: string;
   year: number;
-  cost: number; // MSRP reference cost in USD
-  originalCost?: number; // Pre-reduction MSRP if cost was reduced
-  costReducedDate?: string;
-  category: string; // e.g. Sedan, Coupe, SUV, Naked, Sport, Cruiser, Adventure
+  price: number; // Indicative reference price in USD
+  category: 'Sedan' | 'SUV' | 'Coupe' | 'Supercar' | 'Hatchback';
   image: string;
   gallery: string[];
   engine: string;
-  displacement?: string;
+  shortEngine: string;
+  displacement: string;
   horsepower: number;
   torque: string;
-  fuelType: 'Gasoline' | 'Electric' | 'Hybrid' | 'Diesel';
+  fuelType: 'Gasoline' | 'Diesel' | 'Hybrid' | 'Electric';
   transmission: string;
+  shortTransmission: 'Automatic' | 'Manual';
+  drivetrain: string;
+  shortDrivetrain: 'AWD' | 'RWD' | 'FWD' | '4WD';
+  topSpeed: string;
+  acceleration: string;
   fuelEconomy: string;
   weight: string;
   seatingCapacity: number;
-  topSpeed: string;
-  acceleration?: string; // 0-60 mph
-  drivetrain?: string;
   features: string[];
   description: string;
-  isPopular?: boolean;
   isFeatured?: boolean;
-  isLatest?: boolean;
+  featuredOrder?: number;
 }
 
 export interface Brand {
   id: string;
   name: string;
-  type: VehicleType | 'both';
   origin: string;
   founded: number;
-  logo: string;
   description: string;
-  modelCount: number;
+  headquarters: string;
 }
 
-export type PageRoute = 
+export interface AutomotiveUpdate {
+  id: string;
+  title: string;
+  date: string;
+  category: string;
+  image: string;
+  summary: string;
+  content: string[];
+  relatedVehicleId?: string;
+}
+
+export type PageRoute =
   | 'home'
-  | 'cars'
-  | 'motorcycles'
+  | 'all-cars'
   | 'brands'
   | 'compare'
-  | 'favorites'
-  | 'profile'
   | 'about'
-  | 'contact'
-  | 'search'
-  | 'admin'
-  | 'car-details'
-  | 'motorcycle-details';
+  | 'updates'
+  | 'profile'
+  | 'car-details';
