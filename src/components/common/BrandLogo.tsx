@@ -1,19 +1,12 @@
 import React from 'react';
 
 export const ShiftRouteLogo: React.FC<{ className?: string }> = ({ className = 'w-7 h-7' }) => (
-  <svg
-    viewBox="0 0 36 36"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-    aria-hidden="true"
-  >
-    <path
-      d="M27.5 6.5H14.5C9.8 6.5 7.5 9.2 7.5 12.2C7.5 15.8 10.7 17.5 16.3 18.6L20.7 19.5C23.8 20.1 25.1 21 25.1 22.8C25.1 24.7 23.4 25.8 19.6 25.8H6.5L4.5 29.8H19.8C25.8 29.8 29.5 26.8 29.5 22.6C29.5 18.8 26.4 16.7 20.6 15.5L16.3 14.6C13.3 14 11.9 13.3 11.9 11.8C11.9 10.4 13.4 9.7 16.5 9.7H25.7L27.5 6.5Z"
-      fill="currentColor"
-    />
-    <path d="M9.5 21.5H15.5L13.8 24.5H7.8L9.5 21.5Z" fill="currentColor" />
-  </svg>
+  <img
+    src="/shiftroute-logo-black.png"
+    alt="ShiftRoute logo"
+    referrerPolicy="no-referrer"
+    className={`object-contain shrink-0 ${className}`}
+  />
 );
 
 export const BrandLogo: React.FC<{ brandName: string; className?: string }> = ({
